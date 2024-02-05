@@ -9,7 +9,9 @@ import bricker.gameobjects.Lives;
 import bricker.gameobjects.UserPaddle;
 import danogl.GameManager;
 import danogl.GameObject;
+import danogl.collisions.Layer;
 import danogl.gui.*;
+import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
 import java.util.Random;
@@ -52,6 +54,9 @@ public class BrickerGameManager extends GameManager {
 
         //create walls.
         createWalls();
+
+        //create background.
+        createBackground();
     }
 
 
@@ -65,7 +70,7 @@ public class BrickerGameManager extends GameManager {
         float ballHeight = ball.getCenter().y();
         String prompt = "";
         GameObject heartToRemove = null;
-        if (ballHeight < 0 || ballHeight > windowDimensions.y()) {
+        if (ballHeight > windowDimensions.y()) {
             if (null == (heartToRemove = this.lives.decreaseLife())) {
                 prompt = "You lose! Play again?";
             } else {
@@ -130,9 +135,14 @@ public class BrickerGameManager extends GameManager {
                 Resources.heartImage);
         gameObjects().addGameObject(lives);
         for (GameObject heart : lives.getHearts()) {
-            gameObjects().addGameObject(heart);
+            gameObjects().addGameObject(heart, Layer.UI);
         }
         this.lives = lives;
+    }
+
+    private void createBackground(){
+        GameObject background = new GameObject(Vector2.ZERO, windowDimensions, Resources.backgroundImage);
+        gameObjects().addGameObject(background, Layer.BACKGROUND);
     }
 
 
