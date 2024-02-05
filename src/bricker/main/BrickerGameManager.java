@@ -14,6 +14,8 @@ import danogl.gui.*;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
+import java.awt.event.InputMethodListener;
+import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class BrickerGameManager extends GameManager {
@@ -24,6 +26,7 @@ public class BrickerGameManager extends GameManager {
     private Vector2 windowDimensions;
     private WindowController windowController;
     private int numberOfBricks;
+    private UserInputListener inputListener;
 
     public BrickerGameManager(String windowTitle, Vector2 windowDimensions) {
         super(windowTitle, windowDimensions);
@@ -35,6 +38,7 @@ public class BrickerGameManager extends GameManager {
         Resources.initializeResources(imageReader, soundReader);
         this.windowDimensions = windowController.getWindowDimensions();
         this.windowController = windowController;
+        this.inputListener = inputListener;
         windowController.setTargetFramerate(80);
 
         //create ball.
@@ -76,6 +80,9 @@ public class BrickerGameManager extends GameManager {
             }
         }
         if(this.numberOfBricks == 0){
+            prompt = "You win! Play again?";
+        }
+        if(inputListener.isKeyPressed(KeyEvent.VK_W)) {
             prompt = "You win! Play again?";
         }
 
