@@ -71,7 +71,7 @@ public class BrickerGameManager extends GameManager {
     }
 
 
-    private void createPaddle(ImageReader imageReader, UserInputListener inputListener,
+    public void createPaddle(ImageReader imageReader, UserInputListener inputListener,
                               Vector2 windowDimensions) {
         GameObject userPaddle = new UserPaddle(new Vector2(0, 0), new Vector2(Constants.PADDLE_WIDTH,
                 Constants.PADDLE_HEIGHT),
@@ -80,10 +80,9 @@ public class BrickerGameManager extends GameManager {
         gameObjects().addGameObject(userPaddle);
     }
 
-
     private void createBrick(ImageReader imageReader, Vector2 windowDimensions) {
         GameObject brick = new Brick(Vector2.ZERO, new Vector2(windowDimensions.x(), 15),
-                Resources.brickImage, new BasicCollisionStrategy());
+                Resources.brickImage, new BasicCollisionStrategy(this));
         brick.setCenter(new Vector2(windowDimensions.x() / 2, (int) windowDimensions.y()/2));
         gameObjects().addGameObject(brick);
     }
