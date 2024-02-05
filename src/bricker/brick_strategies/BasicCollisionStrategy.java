@@ -11,6 +11,6 @@ public class BasicCollisionStrategy extends CollisionStrategyManager implements 
 
     public void onCollision(GameObject thisObj, GameObject otherObj){
         System.out.println("collision with brick detected");
-        gameManager.gameObjects().removeGameObject();
+        gameManager.removeGameObject(thisObj);
     }
 }
