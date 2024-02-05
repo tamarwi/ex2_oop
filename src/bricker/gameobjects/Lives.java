@@ -26,9 +26,9 @@ public class Lives extends GameObject{
         super(topLeftCorner, dimensions, renderable);
 
         this.numberOfLivesLeft = Constants.NUMBER_OF_LIVES;
-        this.hearts = new GameObject[Constants.NUMBER_OF_LIVES];
+        this.hearts = new GameObject[Constants.MAX_NUMBER_OF_LIVES];
         Vector2 heartDiffVector = new Vector2( 25, 0);
-        for(int i = 0;i < Constants.NUMBER_OF_LIVES;i++){
+        for(int i = 0; i < Constants.MAX_NUMBER_OF_LIVES; i++){
             this.hearts[i] = new Image(topLeftCorner.add(heartDiffVector.mult(i)), Resources.heartImage);
         }
     }
@@ -37,6 +37,9 @@ public class Lives extends GameObject{
         return this.hearts;
     }
 
+    public int getNumberOfLivesLeft(){
+        return this.numberOfLivesLeft;
+    }
 
     public GameObject decreaseLife(){
         if((this.numberOfLivesLeft--) == 1){
@@ -44,6 +47,12 @@ public class Lives extends GameObject{
         }
 
         return this.hearts[this.numberOfLivesLeft]; //more lives left
+    }
+
+    public void increaseLife(){
+        if(this.numberOfLivesLeft < Constants.MAX_NUMBER_OF_LIVES){
+            this.numberOfLivesLeft++;
+        }
     }
 
 }

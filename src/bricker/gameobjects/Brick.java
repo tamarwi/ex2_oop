@@ -1,5 +1,6 @@
 package bricker.gameobjects;
 
+import bricker.Constants;
 import bricker.brick_strategies.CollisionStrategy;
 import danogl.GameObject;
 import danogl.collisions.Collision;
@@ -32,5 +33,9 @@ public class Brick extends GameObject {
             this.collisionStrategy.onCollision(this, other);
     }
 
+    @Override
+    public boolean shouldCollideWith(GameObject other){
+        return !other.getTag().equals(Constants.WALL_TAG);
+    }
 
 }

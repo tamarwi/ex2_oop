@@ -10,7 +10,7 @@ import danogl.util.Vector2;
 
 import java.util.Random;
 
-public class AdditionalBallStrategy extends CollisionStrategyManager implements CollisionStrategy{
+public class AdditionalBallStrategy extends BasicCollisionStrategy implements CollisionStrategy{
     public AdditionalBallStrategy(BrickerGameManager gameManager){
         super(gameManager);
     }
@@ -37,5 +37,7 @@ public class AdditionalBallStrategy extends CollisionStrategyManager implements 
 
         gameManager.addGameObject(ball1);
         gameManager.addGameObject(ball2);
+
+        super.onCollision(thisObj, otherObj);
     }
 }

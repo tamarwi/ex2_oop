@@ -34,10 +34,10 @@ public class UserPaddle extends GameObject {
         Vector2 movementDirection = Vector2.ZERO;
         if((getTopLeftCorner().x() < 0)){ //100 is paddle size
             System.out.println("out");
-            setTopLeftCorner(new Vector2(0, 500-30));
+            setTopLeftCorner(new Vector2(0, getTopLeftCorner().y()));
         }
         if(getTopLeftCorner().x() > 600){
-            setTopLeftCorner(new Vector2(600, 500-30));
+            setTopLeftCorner(new Vector2(600, getTopLeftCorner().y()));
         }
 
         if(inputListener.isKeyPressed(KeyEvent.VK_LEFT)){
