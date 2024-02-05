@@ -10,11 +10,13 @@ public class Resources {
     public static Sound collisionSound;
     public static Renderable paddleImage;
     public static Renderable heartImage;
+    public static Renderable puckImage;
 
     public static void InitializeResources(ImageReader imageReader, SoundReader soundReader){
         ballImage = imageReader.readImage(Constants.BALL_IMAGE_PATH, true);
         paddleImage = imageReader.readImage(Constants.PADDLE_IMAGE_PATH, true);
         heartImage = imageReader.readImage(Constants.HEART_IMAGE_PATH, true);
+        puckImage = imageReader.readImage(Constants.PUCK_IMAGE_PATH, true);
         collisionSound = soundReader.readSound(Constants.COLLISION_SOUND_PATH);
     }
 }

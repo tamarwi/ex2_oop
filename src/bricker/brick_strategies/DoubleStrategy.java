@@ -10,8 +10,8 @@ public class DoubleStrategy implements CollisionStrategy{
         this.strategy1 = CollisionStrategyBuilder.BuildCollisionStrategyForDouble();
         this.strategy2 = CollisionStrategyBuilder.BuildCollisionStrategyForDouble();
     }
-    public void OnCollision(GameObject other, Collision collision){
-        this.strategy1.OnCollision(other, collision);
-        this.strategy2.OnCollision(other, collision);
+    public void OnCollision(GameObject thisObj, GameObject otherObj){
+        this.strategy1.OnCollision(thisObj, otherObj);
+        this.strategy2.OnCollision(thisObj, otherObj);
     }
 }
