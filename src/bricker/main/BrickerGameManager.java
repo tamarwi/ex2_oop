@@ -79,7 +79,7 @@ public class BrickerGameManager extends GameManager {
 
     private void createBrick(ImageReader imageReader, Vector2 windowDimensions) {
         GameObject brick = new Brick(Vector2.ZERO, new Vector2(windowDimensions.x(), 15),
-                Resources.brickImage, new BasicCollisionStrategy());
+                Resources.brickImage, new BasicCollisionStrategy(this));
         brick.setCenter(new Vector2(windowDimensions.x() / 2, 0));
         gameObjects().addGameObject(brick);
     }

@@ -8,7 +8,9 @@ public class BasicCollisionStrategy extends CollisionStrategyManager implements 
     public BasicCollisionStrategy(BrickerGameManager gameManager){
         super(gameManager);
     }
+
     public void onCollision(GameObject thisObj, GameObject otherObj){
         System.out.println("collision with brick detected");
+        gameManager.gameObjects().removeGameObject();
     }
 }
