@@ -11,7 +11,6 @@ public class DoubleStrategy extends CollisionStrategyManager implements Collisio
         super(gameManager);
         this.strategy1 = CollisionStrategyBuilder.BuildCollisionStrategyForDouble(gameManager);
         this.strategy2 = CollisionStrategyBuilder.BuildCollisionStrategyForDouble(gameManager);
-        // HI TAMAR
     }
 
     public void onCollision(GameObject thisObj, GameObject otherObj){
