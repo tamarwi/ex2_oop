@@ -75,7 +75,7 @@ public class BrickerGameManager extends GameManager {
             if (null == (heartToRemove = this.lives.decreaseLife())) {
                 prompt = "You lose! Play again?";
             } else {
-                gameObjects().removeGameObject(heartToRemove);
+                gameObjects().removeGameObject(heartToRemove, Layer.UI);
                 resetBall();
             }
         }
