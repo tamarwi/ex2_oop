@@ -20,4 +20,6 @@ public class Constants {
     public static final String COLLISION_SOUND_PATH = "assets/blop_cut_silenced.wav";
     public static final int DEFAULT_NUMBER_BRICK_ROWS = 7;
     public static final int DEFAULT_NUMBER_BRICKS_IN_ROW = 8;
+    public static final int NUMBER_OF_LIVES = 3;
+
 }

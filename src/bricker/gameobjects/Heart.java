@@ -10,18 +10,18 @@ import danogl.util.Vector2;
 public class Heart extends GameObject {
     private Sound collisionSound;
 
-    public Heart(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable,
-                Sound collisionSound) {
+    public Heart(Vector2 topLeftCorner, Renderable renderable){
+//                Sound collisionSound) {
 
         super(topLeftCorner, Constants.HEART_DIMENSIONS, renderable);
-        this.setVelocity(Constants.HEART_SPEED);
-        this.collisionSound = collisionSound;
+//        this.setVelocity(Constants.HEART_SPEED);
+//        this.collisionSound = collisionSound;
     }
 
     @Override
     public void onCollisionEnter(GameObject other, Collision collision) {
         super.onCollisionEnter(other, collision);
-        this.collisionSound.play();
+//        this.collisionSound.play();
         // ADD LIFE
     }
 
