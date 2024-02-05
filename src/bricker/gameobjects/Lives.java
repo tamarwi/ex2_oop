@@ -29,7 +29,7 @@ public class Lives extends GameObject{
         this.hearts = new GameObject[Constants.NUMBER_OF_LIVES];
         Vector2 heartDiffVector = new Vector2( 25, 0);
         for(int i = 0;i < Constants.NUMBER_OF_LIVES;i++){
-            this.hearts[i] = new Heart(topLeftCorner.add(heartDiffVector.mult(i)), Resources.heartImage);
+            this.hearts[i] = new Image(topLeftCorner.add(heartDiffVector.mult(i)), Resources.heartImage);
         }
     }
 

@@ -140,7 +140,7 @@ public class BrickerGameManager extends GameManager {
     private void createLives(ImageReader imageReader, UserInputListener inputListener) {
         Lives lives = new Lives(new Vector2(20, 150), Constants.HEART_DIMENSIONS, //TODO 20,150 random heart placement.
                 Resources.heartImage);
-        gameObjects().addGameObject(lives);
+        gameObjects().addGameObject(lives, Layer.STATIC_OBJECTS);
         for (GameObject heart : lives.getHearts()) {
             gameObjects().addGameObject(heart, Layer.UI);
         }
