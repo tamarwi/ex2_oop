@@ -41,6 +41,9 @@ public class BrickerGameManager extends GameManager {
         this.inputListener = inputListener;
         windowController.setTargetFramerate(80);
 
+        //create background.
+        createBackground();
+
         //create ball.
         createBall(imageReader, soundReader);
 
@@ -55,9 +58,6 @@ public class BrickerGameManager extends GameManager {
 
         //create walls.
         createWalls();
-
-        //create background.
-        createBackground();
     }
 
 
@@ -80,7 +80,7 @@ public class BrickerGameManager extends GameManager {
             }
         }
         if(this.numberOfBricks == 0){
-            prompt = "You win! Play again?";
+            prompt = "you win! play again?";
         }
         if(inputListener.isKeyPressed(KeyEvent.VK_W)) {
             prompt = "You win! Play again?";
