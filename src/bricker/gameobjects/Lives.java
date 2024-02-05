@@ -39,7 +39,7 @@ public class Lives extends GameObject{
 
 
     public GameObject decreaseLife(){
-        if((this.numberOfLivesLeft--) == 0){
+        if((this.numberOfLivesLeft--) == 1){
             return null; //end of game
         }
 
