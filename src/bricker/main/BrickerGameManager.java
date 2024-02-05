@@ -66,6 +66,10 @@ public class BrickerGameManager extends GameManager {
         ball.setVelocity(new Vector2(ballVelX, ballVelY));
     }
 
+    public void addGameObject(GameObject gameObject){
+        gameObjects().addGameObject(gameObject);
+    }
+
 
     private void createPaddle(ImageReader imageReader, UserInputListener inputListener,
                               Vector2 windowDimensions) {
