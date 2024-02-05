@@ -23,7 +23,7 @@ public class BrickerGameManager extends GameManager {
     private Lives lives;
     private Vector2 windowDimensions;
     private WindowController windowController;
-    private int numberOfLivesLeft;
+    private int numberOfBricks;
 
     public BrickerGameManager(String windowTitle, Vector2 windowDimensions) {
         super(windowTitle, windowDimensions);
@@ -36,9 +36,6 @@ public class BrickerGameManager extends GameManager {
         this.windowDimensions = windowController.getWindowDimensions();
         this.windowController = windowController;
         windowController.setTargetFramerate(80);
-
-        //initialize lives.
-        this.numberOfLivesLeft = Constants.NUMBER_OF_LIVES;
 
         //create ball.
         createBall(imageReader, soundReader);
@@ -77,6 +74,9 @@ public class BrickerGameManager extends GameManager {
                 gameObjects().removeGameObject(heartToRemove);
                 resetBall();
             }
+        }
+        if(this.numberOfBricks == 0){
+            prompt = "You win! Play again?";
         }
 
         if (!prompt.isEmpty()) {
@@ -172,6 +172,15 @@ public class BrickerGameManager extends GameManager {
                         (int) (windowDimensions.x() / number_bricks_in_row) - 5);
             }
         }
+        this.numberOfBricks = this.number_bricks_in_row * this.number_brick_rows;
+    }
+
+    public void setNumberOfBricks(int numberOfBricks){
+        this.numberOfBricks = numberOfBricks;
+    }
+
+    public int getNumberOfBricks(){
+        return this.numberOfBricks;
     }
 
     public void getBrickRowsInfo(String[] args) {
