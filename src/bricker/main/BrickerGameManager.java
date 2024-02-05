@@ -2,6 +2,7 @@ package bricker.main;
 
 import bricker.Resources;
 import bricker.gameobjects.Ball;
+import bricker.gameobjects.UserPaddle;
 import danogl.GameManager;
 import danogl.GameObject;
 import danogl.gui.*;
@@ -28,15 +29,17 @@ public class BrickerGameManager extends GameManager {
         ball.setCenter(windowDimensions.mult(0.5F));
         this.gameObjects().addGameObject(ball);
 
-        //create paddles.
-        int[] paddleHeights = {(int)windowDimensions.y() - 30, 30};
+        //create user paddle.
+        GameObject userPaddle = new UserPaddle(new Vector2(0,0), new Vector2( 100,15),
+                Resources.paddleImage, inputListener);
+        userPaddle.setCenter(new Vector2(windowDimensions.x() / 2, (int)windowDimensions.y() - 30));
+        gameObjects().addGameObject(userPaddle);
 
-        for(int i =0 ; i< paddleHeights.length; i++){
-            GameObject paddle = new GameObject(new Vector2(0,0), new Vector2( 100,15),
-                    Resources.paddleImage);
-            paddle.setCenter(new Vector2(windowDimensions.x() / 2, paddleHeights[i]));
-            gameObjects().addGameObject(paddle);
-        }
+        //create ai paddle
+        GameObject aiPaddle = new GameObject(new Vector2(0,0), new Vector2( 100,15),
+                Resources.paddleImage);
+        aiPaddle.setCenter(new Vector2(windowDimensions.x() / 2, 30));
+        gameObjects().addGameObject(aiPaddle);
     }
 
     public static void main(String[] args) {
