@@ -1,5 +1,6 @@
 package bricker.main;
 
+import bricker.Resources;
 import bricker.gameobjects.Ball;
 import danogl.GameManager;
 import danogl.GameObject;
@@ -19,9 +20,8 @@ public class BrickerGameManager extends GameManager {
 
         windowController.setTargetFramerate(80);
         //create ball.
-        Renderable ballImage = imageReader.readImage("assets/ball.png", true);
-        Sound collisionSound = soundReader.readSound("assets/blop_cut_silenced.wav");
-        GameObject ball = new Ball(new Vector2(0,0), new Vector2( 20,20), ballImage, collisionSound);
+        GameObject ball = new Ball(new Vector2(0,0), new Vector2( 20,20), Resources.ballImage,
+                Resources.collisionSound);
         ball.setVelocity(new Vector2(0, 100));
 
         Vector2 windowDimensions = windowController.getWindowDimensions();
@@ -30,10 +30,10 @@ public class BrickerGameManager extends GameManager {
 
         //create paddles.
         int[] paddleHeights = {(int)windowDimensions.y() - 30, 30};
-        Renderable paddleImage = imageReader.readImage("assets/paddle.png", true);
 
         for(int i =0 ; i< paddleHeights.length; i++){
-            GameObject paddle = new GameObject(new Vector2(0,0), new Vector2( 100,15), paddleImage);
+            GameObject paddle = new GameObject(new Vector2(0,0), new Vector2( 100,15),
+                    Resources.paddleImage);
             paddle.setCenter(new Vector2(windowDimensions.x() / 2, paddleHeights[i]));
             gameObjects().addGameObject(paddle);
         }
