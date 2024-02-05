@@ -4,7 +4,10 @@ import danogl.GameObject;
 import danogl.collisions.Collision;
 
 public class BasicCollisionStrategy implements  CollisionStrategy{
-    public void OnCollision(GameObject other, Collision collision){
+    public BasicCollisionStrategy() {
+    }
 
+    public void OnCollision(GameObject thisObj, GameObject otherObj){
+        System.out.println("collision with brick detected");
     }
 }

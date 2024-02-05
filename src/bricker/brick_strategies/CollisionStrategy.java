@@ -4,5 +4,5 @@ import danogl.GameObject;
 import danogl.collisions.Collision;
 
 public interface CollisionStrategy {
-    public void OnCollision(GameObject other, Collision collision);
+    public void OnCollision(GameObject thisObj, GameObject otherObj);
 }
