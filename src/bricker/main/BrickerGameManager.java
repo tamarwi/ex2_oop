@@ -24,15 +24,13 @@ public class BrickerGameManager extends GameManager {
     @Override
     public void initializeGame(ImageReader imageReader, SoundReader soundReader, UserInputListener inputListener, WindowController windowController) {
         super.initializeGame(imageReader, soundReader, inputListener, windowController);
+        Resources.initializeResources(imageReader, soundReader);
 
         Vector2 windowDimensions = windowController.getWindowDimensions();
 
         windowController.setTargetFramerate(80);
         //create ball.
         createBall(imageReader, soundReader, windowDimensions);
-
-
-        Renderable paddleImage = imageReader.readImage("assets/paddle.png", true);
 
         //create user paddle.
         createPaddle(imageReader, inputListener, windowDimensions);
@@ -49,10 +47,9 @@ public class BrickerGameManager extends GameManager {
 
     private void createBall(ImageReader imageReader, SoundReader soundReader,
                             Vector2 windowDimensions) {
-        Renderable ballImage = imageReader.readImage("assets/ball.png", true);
-        Sound collisionSound = soundReader.readSound("assets/blop_cut_silenced.wav");
-        GameObject ball = new Ball(new Vector2(0, 0), new Vector2(Constants.BALL_RADIUS, Constants.BALL_RADIUS),
-                ballImage, collisionSound);
+        GameObject ball = new Ball(new Vector2(0, 0), new Vector2(Constants.BALL_RADIUS,
+                Constants.BALL_RADIUS),
+                Resources.ballImage, Resources.collisionSound);
         ball.setVelocity(new Vector2(0, Constants.BALL_SPEED));
 
         ball.setCenter(windowDimensions.mult(0.5F));
@@ -81,9 +78,8 @@ public class BrickerGameManager extends GameManager {
 
 
     private void createBrick(ImageReader imageReader, Vector2 windowDimensions) {
-        Renderable brickImage = imageReader.readImage("assets/brick.png", false);
         GameObject brick = new Brick(Vector2.ZERO, new Vector2(windowDimensions.x(), 15),
-                brickImage, new BasicCollisionStrategy());
+                Resources.brickImage, new BasicCollisionStrategy());
         brick.setCenter(new Vector2(windowDimensions.x() / 2, (int) windowDimensions.y()/2));
         gameObjects().addGameObject(brick);
     }
