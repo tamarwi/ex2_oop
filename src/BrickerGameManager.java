@@ -19,6 +19,7 @@ public class BrickerGameManager extends GameManager{
     public void initializeGame(ImageReader imageReader, SoundReader soundReader, UserInputListener inputListener, WindowController windowController) {
         super.initializeGame(imageReader, soundReader, inputListener, windowController);
 
+        windowController.setTargetFramerate(80);
         //create ball.
         Renderable ballImage = imageReader.readImage("assets/ball.png", true);
         GameObject ball = new GameObject(new Vector2(0,0), new Vector2( 20,20), ballImage);
