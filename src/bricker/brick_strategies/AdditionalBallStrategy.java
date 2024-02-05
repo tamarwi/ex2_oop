@@ -10,7 +10,7 @@ import danogl.util.Vector2;
 import java.util.Random;
 
 public class AdditionalBallStrategy implements CollisionStrategy{
-    public void OnCollision(GameObject thisObj, GameObject otherObj){
+    public void onCollision(GameObject thisObj, GameObject otherObj){
         Random random = new Random();
         double angle = random.nextDouble() * Math.PI;
         float velocityX = (float)Math.cos(angle) * Constants.BALL_SPEED;
