@@ -34,6 +34,7 @@ public class BrickerGameManager extends GameManager {
         this.windowDimensions = windowController.getWindowDimensions();
         this.windowController = windowController;
         windowController.setTargetFramerate(80);
+
         //initialize lives.
         this.numberOfLivesLeft = Constants.NUMBER_OF_LIVES;
 
@@ -44,19 +45,15 @@ public class BrickerGameManager extends GameManager {
         createPaddle(imageReader, inputListener);
 
         //create bricks.
-        for (int i = 0; i < this.number_brick_rows; i++) {
-            for (int j = 0; j < this.number_bricks_in_row; j++) {
-                createBrick(imageReader,
-                        windowDimensions,
-                        new Vector2((((windowDimensions.x() - (this.number_bricks_in_row - 1) * 5) / number_bricks_in_row) * j), (i * 15) + (5 * i)),
-                        (int) (windowDimensions.x() / number_bricks_in_row) - 5);
-            }
-        }
+        createBricks(imageReader);
 
         //create lives.
         createLives(imageReader, inputListener);
 
+        //create walls.
+        createWalls();
     }
+
 
     @Override
     public void update(float deltaTime) {
@@ -144,6 +141,27 @@ public class BrickerGameManager extends GameManager {
                 Resources.brickImage, new BasicCollisionStrategy(this));
         brick.setTopLeftCorner(center);
         gameObjects().addGameObject(brick);
+    }
+
+    private void createWalls(){
+        Vector2 sideWallDimensions = new Vector2(5, this.windowDimensions.y());
+        GameObject leftWall = new GameObject(Vector2.ZERO, sideWallDimensions, null);
+        GameObject rightWall = new GameObject(new Vector2(this.windowDimensions.x() - 5, 0), sideWallDimensions, null);
+        GameObject topWall = new GameObject(Vector2.ZERO, new Vector2(this.windowDimensions.x(), 5), null);
+        gameObjects().addGameObject(leftWall);
+        gameObjects().addGameObject(rightWall);
+        gameObjects().addGameObject(topWall);
+    }
+
+    private void createBricks(ImageReader imageReader){
+        for (int i = 0; i < this.number_brick_rows; i++) {
+            for (int j = 0; j < this.number_bricks_in_row; j++) {
+                createBrick(imageReader,
+                        windowDimensions,
+                        new Vector2((((windowDimensions.x() - (this.number_bricks_in_row - 1) * 5) / number_bricks_in_row) * j), (i * 15) + (5 * i)),
+                        (int) (windowDimensions.x() / number_bricks_in_row) - 5);
+            }
+        }
     }
 
     public void getBrickRowsInfo(String[] args) {
