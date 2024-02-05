@@ -1,11 +1,18 @@
+package bricker.gameobjects;
+
 import danogl.GameObject;
 import danogl.collisions.Collision;
 
-public class Brick {
-    public Brick() {
+public class Ball {
+    public Ball() {
     }
 
     void onCollisionEnter(GameObject other, Collision collision){
 
     }
+
+    int getCollisionCounter(){
+        return 0;
+    }
+
 }

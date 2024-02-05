@@ -1,3 +1,5 @@
+package bricker.main;
+
 import danogl.GameManager;
 import danogl.GameObject;
 import danogl.gui.ImageReader;
@@ -7,9 +9,7 @@ import danogl.gui.WindowController;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
-import javax.swing.*;
-
-public class BrickerGameManager extends GameManager{
+public class BrickerGameManager extends GameManager {
 
     public BrickerGameManager(String windowTitle, Vector2 windowDimensions) {
         super(windowTitle, windowDimensions);
