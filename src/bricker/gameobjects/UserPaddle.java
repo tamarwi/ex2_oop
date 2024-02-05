@@ -47,6 +47,5 @@ public class UserPaddle extends GameObject {
             movementDirection = movementDirection.add(Vector2.RIGHT);
         }
         setVelocity(movementDirection.mult(MOVEMENT_SPEED));
-        System.out.println(getTopLeftCorner());
     }
 }

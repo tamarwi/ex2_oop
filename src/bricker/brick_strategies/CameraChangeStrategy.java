@@ -11,7 +11,7 @@ public class CameraChangeStrategy extends CollisionStrategyManager implements Co
         super(gameManager);
     }
     public void onCollision(GameObject thisObj, GameObject otherObj){
-        gameManager.setCamera(
+        /*gameManager.setCamera(
                 new Camera(
                         ball, //object to follow
                         Vector2.ZERO, //follow the center of the object
@@ -19,6 +19,6 @@ public class CameraChangeStrategy extends CollisionStrategyManager implements Co
                         windowController.getWindowDimensions() //share the window dimensions
                 )
         );
-        gameManager.setCamera(null);
+        gameManager.setCamera(null);*/
     }
 }

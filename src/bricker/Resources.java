@@ -12,6 +12,7 @@ public class Resources {
     public static Renderable heartImage;
     public static Renderable puckImage;
     public static Renderable brickImage;
+    public static Renderable backgroundImage;
 
     public static void initializeResources(ImageReader imageReader, SoundReader soundReader){
         ballImage = imageReader.readImage(Constants.BALL_IMAGE_PATH, true);
@@ -19,6 +20,7 @@ public class Resources {
         heartImage = imageReader.readImage(Constants.HEART_IMAGE_PATH, true);
         puckImage = imageReader.readImage(Constants.PUCK_IMAGE_PATH, true);
         brickImage = imageReader.readImage(Constants.BRICK_IMAGE_PATH, false);
+        backgroundImage =imageReader.readImage(Constants.BACKGROUND_IMAGE_PATH, false);
         collisionSound = soundReader.readSound(Constants.COLLISION_SOUND_PATH);
     }
 }
