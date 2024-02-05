@@ -1,3 +1,5 @@
+package bricker.gameobjects;
+
 import danogl.GameManager;
 import danogl.GameObject;
 import danogl.collisions.Collision;
@@ -10,12 +12,10 @@ public class Ball extends GameObject {
     }
 
 
-    void onCollisionEnter(GameObject other, Collision collision){
-
+    @Override
+    public void onCollisionEnter(GameObject other, Collision collision) {
+        super.onCollisionEnter(other, collision);
+        Vector2 newVel = getVelocity().flipped(collision.getNormal());
+        setVelocity(newVel);
     }
-
-    int getCollisionCounter(){
-        return 0;
-    }
-
 }

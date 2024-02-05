@@ -1,5 +1,6 @@
 package bricker.main;
 
+import bricker.gameobjects.Ball;
 import danogl.GameManager;
 import danogl.GameObject;
 import danogl.gui.ImageReader;
@@ -22,7 +23,7 @@ public class BrickerGameManager extends GameManager {
         windowController.setTargetFramerate(80);
         //create ball.
         Renderable ballImage = imageReader.readImage("assets/ball.png", true);
-        GameObject ball = new GameObject(new Vector2(0,0), new Vector2( 20,20), ballImage);
+        GameObject ball = new Ball(new Vector2(0,0), new Vector2( 20,20), ballImage);
         ball.setVelocity(new Vector2(0, 100));
 
         Vector2 windowDimensions = windowController.getWindowDimensions();
