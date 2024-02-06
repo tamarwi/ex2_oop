@@ -27,4 +27,8 @@ public class Ball extends GameObject {
         this.collisionCounter++;
         this.collisionSound.play();
     }
+
+    public int getCollisionCounter(){
+        return this.collisionCounter;
+    }
 }

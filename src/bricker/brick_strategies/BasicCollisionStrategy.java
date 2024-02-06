@@ -4,13 +4,13 @@ import bricker.main.BrickerGameManager;
 import danogl.GameObject;
 import danogl.collisions.Collision;
 
-public class BasicCollisionStrategy extends CollisionStrategyManager implements  CollisionStrategy{
+public class BasicCollisionStrategy implements  CollisionStrategy{
+    protected BrickerGameManager gameManager;
     public BasicCollisionStrategy(BrickerGameManager gameManager){
-        super(gameManager);
+        this.gameManager = gameManager;
     }
 
     public void onCollision(GameObject thisObj, GameObject otherObj){
-        System.out.println("collision with brick detected");
         gameManager.removeGameObject(thisObj);
         gameManager.setNumberOfBricks(gameManager.getNumberOfBricks()-1);
     }

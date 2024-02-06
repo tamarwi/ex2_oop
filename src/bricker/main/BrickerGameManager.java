@@ -2,15 +2,13 @@ package bricker.main;
 
 import bricker.Constants;
 import bricker.Resources;
-import bricker.gameobjects.Brick;
-import bricker.brick_strategies.BasicCollisionStrategy;
-import bricker.gameobjects.Ball;
-import bricker.gameobjects.Lives;
-import bricker.gameobjects.UserPaddle;
+import bricker.brick_strategies.*;
+import bricker.gameobjects.*;
 import danogl.GameManager;
 import danogl.GameObject;
 import danogl.collisions.Layer;
 import danogl.gui.*;
+import danogl.gui.rendering.Camera;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
@@ -21,12 +19,14 @@ import java.util.Random;
 public class BrickerGameManager extends GameManager {
     private int number_brick_rows;
     private int number_bricks_in_row;
-    private GameObject ball;
+    private Ball ball;
     private Lives lives;
     private Vector2 windowDimensions;
     private WindowController windowController;
     private int numberOfBricks;
     private UserInputListener inputListener;
+    private TemporalPaddle temporalPaddle;
+    private int lastBallNumCollisions;
 
     public BrickerGameManager(String windowTitle, Vector2 windowDimensions) {
         super(windowTitle, windowDimensions);
@@ -39,6 +39,7 @@ public class BrickerGameManager extends GameManager {
         this.windowDimensions = windowController.getWindowDimensions();
         this.windowController = windowController;
         this.inputListener = inputListener;
+        this.temporalPaddle = null;
         windowController.setTargetFramerate(80);
 
         //create background.
@@ -60,11 +61,15 @@ public class BrickerGameManager extends GameManager {
         createWalls();
     }
 
-
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
         checkForGameEnd();
+        checkForCameraReset();
+    }
+
+    public Vector2 getWindowDimensions(){
+        return this.windowDimensions;
     }
 
     private void checkForGameEnd() {
@@ -111,10 +116,11 @@ public class BrickerGameManager extends GameManager {
     }
 
     private void createBall(ImageReader imageReader, SoundReader soundReader) {
-        GameObject ball = new Ball(new Vector2(0, 0), new Vector2(Constants.BALL_RADIUS,
+        Ball ball = new Ball(new Vector2(0, 0), new Vector2(Constants.BALL_RADIUS,
                 Constants.BALL_RADIUS),
                 Resources.ballImage, Resources.collisionSound);
         this.ball = ball;
+        ball.setTag(Constants.MAIN_BALL_TAG);
         resetBall();
         this.gameObjects().addGameObject(ball);
 
@@ -128,23 +134,65 @@ public class BrickerGameManager extends GameManager {
         gameObjects().removeGameObject(gameObject);
     }
 
+    public void focusCameraOnBall(){
+        lastBallNumCollisions = ball.getCollisionCounter();
+        this.setCamera(
+                new Camera(
+                        ball, //object to follow
+                        Vector2.ZERO, //follow the center of the object
+                        getWindowDimensions().mult(1.2f), //widen the frame a bit
+                        getWindowDimensions() //share the window dimensions
+                )
+        );
+    }
+
+    private void checkForCameraReset(){
+        if(ball.getCollisionCounter() >= lastBallNumCollisions +
+                Constants.NUM_COLLISIONS_BEFORE_CAMERA_RESET){
+            setCamera(null);
+        }
+    }
 
     private void createPaddle(ImageReader imageReader, UserInputListener inputListener) {
         GameObject userPaddle = new UserPaddle(new Vector2(0, 0), new Vector2(Constants.PADDLE_WIDTH,
                 Constants.PADDLE_HEIGHT),
                 Resources.paddleImage, inputListener);
         userPaddle.setCenter(new Vector2(windowDimensions.x() / 2, (int) windowDimensions.y() - 30));
+        userPaddle.setTag(Constants.MAIN_PADDLE_TAG);
         gameObjects().addGameObject(userPaddle);
+    }
+
+    public void createTemporalPaddle() {
+        if(this.temporalPaddle!=null){
+            return;
+        }
+        TemporalPaddle temporalPaddle = new TemporalPaddle(new Vector2(0, 0), new Vector2(Constants.PADDLE_WIDTH,
+                Constants.PADDLE_HEIGHT),
+                Resources.paddleImage, inputListener, this);
+        temporalPaddle.setCenter(new Vector2(windowDimensions.x() / 2, windowDimensions.y() / 2));
+        gameObjects().addGameObject(temporalPaddle);
+        this.temporalPaddle = temporalPaddle;
+    }
+
+    public void removeTemporalPaddle(){
+        this.temporalPaddle = null;
     }
 
     private void createLives(ImageReader imageReader, UserInputListener inputListener) {
         Lives lives = new Lives(new Vector2(20, 150), Constants.HEART_DIMENSIONS, //TODO 20,150 random heart placement.
                 Resources.heartImage);
-        gameObjects().addGameObject(lives);
-        for (GameObject heart : lives.getHearts()) {
-            gameObjects().addGameObject(heart, Layer.UI);
+        gameObjects().addGameObject(lives, Layer.UI);
+        GameObject[] hearts = lives.getHearts();
+        for (int i=0; i<lives.getNumberOfLivesLeft(); ++i) {
+            gameObjects().addGameObject(hearts[i], Layer.UI);
         }
         this.lives = lives;
+    }
+
+    public void addLife(){
+        this.lives.increaseLife();
+        int num_lives = this.lives.getNumberOfLivesLeft();
+        gameObjects().addGameObject(lives.getHearts()[num_lives-1], Layer.UI);
     }
 
     private void createBackground(){
@@ -154,8 +202,9 @@ public class BrickerGameManager extends GameManager {
 
 
     private void createBrick(ImageReader imageReader, Vector2 windowDimensions, Vector2 center, int length) {
+        CollisionStrategy strategy = CollisionStrategyBuilder.BuildCollisionStrategy(this);
         GameObject brick = new Brick(Vector2.ZERO, new Vector2(length, 15),
-                Resources.brickImage, new BasicCollisionStrategy(this));
+                Resources.brickImage, strategy);
         brick.setTopLeftCorner(center);
         gameObjects().addGameObject(brick);
     }
@@ -165,6 +214,9 @@ public class BrickerGameManager extends GameManager {
         GameObject leftWall = new GameObject(Vector2.ZERO, sideWallDimensions, null);
         GameObject rightWall = new GameObject(new Vector2(this.windowDimensions.x() - 5, 0), sideWallDimensions, null);
         GameObject topWall = new GameObject(Vector2.ZERO, new Vector2(this.windowDimensions.x(), 5), null);
+        leftWall.setTag(Constants.WALL_TAG);
+        rightWall.setTag(Constants.WALL_TAG);
+        topWall.setTag(Constants.WALL_TAG);
         gameObjects().addGameObject(leftWall);
         gameObjects().addGameObject(rightWall);
         gameObjects().addGameObject(topWall);
