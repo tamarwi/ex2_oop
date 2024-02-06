@@ -204,7 +204,7 @@ public class BrickerGameManager extends GameManager {
     private void createBrick(ImageReader imageReader, Vector2 windowDimensions, Vector2 center, int length) {
         CollisionStrategy strategy = CollisionStrategyBuilder.BuildCollisionStrategy(this);
         GameObject brick = new Brick(Vector2.ZERO, new Vector2(length, 15),
-                Resources.brickImage, strategy);
+                Resources.brickImage, new DoubleStrategy(this));
         brick.setTopLeftCorner(center);
         gameObjects().addGameObject(brick);
     }

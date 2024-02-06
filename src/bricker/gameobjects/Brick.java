@@ -9,6 +9,7 @@ import danogl.util.Vector2;
 
 public class Brick extends GameObject {
     private static final int BRICK_HEIGHT  = 15;
+    private boolean isDestroyed;
     private CollisionStrategy collisionStrategy;
 
     /**
@@ -24,13 +25,16 @@ public class Brick extends GameObject {
                  CollisionStrategy collisionStrategy) {
         super(topLeftCorner, dimensions, renderable);
         this.collisionStrategy = collisionStrategy;
-
+        this.isDestroyed = false;
     }
 
     @Override
     public void onCollisionEnter(GameObject other, Collision collision) {
-            super.onCollisionEnter(other, collision);
-            this.collisionStrategy.onCollision(this, other);
+            if(!this.isDestroyed){
+                super.onCollisionEnter(other, collision);
+                this.collisionStrategy.onCollision(this, other);
+            }
+            this.isDestroyed = true;
     }
 
     @Override
