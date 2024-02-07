@@ -9,10 +9,8 @@ import danogl.GameObject;
 import danogl.collisions.Layer;
 import danogl.gui.*;
 import danogl.gui.rendering.Camera;
-import danogl.gui.rendering.TextRenderable;
 import danogl.util.Vector2;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
@@ -254,17 +252,14 @@ public class BrickerGameManager extends GameManager {
      * @param inputListener The UserInputListener object to handle user input.
      */
     private void createLives(ImageReader imageReader, UserInputListener inputListener) {
-//        numericLivesDisplay = new TextRenderable(String.valueOf(Constants.NUMBER_OF_LIVES));
-//        numericLivesDisplay.setColor(Color.GREEN);
         Lives lives = new Lives(new Vector2(40, windowDimensions.y() - 30), Constants.HEART_DIMENSIONS, //TODO 20,150 random heart placement.
                 Resources.heartImage);
         gameObjects().addGameObject(lives, Layer.UI);
-//        gameObjects().addGameObject(new GameObject(new Vector2(10, maxY-30), Constants.HEART_DIMENSIONS,
-//                numericLivesDisplay), Layer.UI);
-        GameObject[] livesGameObjects = lives.getLivesGameObjects();
-        for (int i = 0; i < lives.getNumberOfGameObjects(); ++i) {
+        GameObject[] livesGameObjects = lives.getHearts();
+        for (int i = 0; i < lives.getNumberOfLivesLeft(); ++i) {
             gameObjects().addGameObject(livesGameObjects[i], Layer.UI);
         }
+        gameObjects().addGameObject(lives.getNumericDisplay());
         this.lives = lives;
     }
 
@@ -274,20 +269,8 @@ public class BrickerGameManager extends GameManager {
     public void addLife() {
         this.lives.increaseLife();
         int num_lives = this.lives.getNumberOfLivesLeft();
-//        updateNumericLifeDisplay(num_lives);
-        gameObjects().addGameObject(lives.getLivesGameObjects()[num_lives - 1], Layer.UI);
+        gameObjects().addGameObject(lives.getHearts()[num_lives - 1], Layer.UI);
     }
-
-//    private void updateNumericLifeDisplay(int num_lives){
-//        if(num_lives >= Constants.GREEN_NUM_OF_LIVES){
-//            this.numericLivesDisplay.setColor(Color.GREEN);
-//        }else if(num_lives >= Constants.YELLOW_NUM_OF_LIVES){
-//            this.numericLivesDisplay.setColor(Color.YELLOW);
-//        }else{
-//            this.numericLivesDisplay.setColor(Color.RED);
-//        }
-//        this.numericLivesDisplay.setString(String.valueOf(num_lives));
-//    }
 
     /**
      * Creates the background game object.
