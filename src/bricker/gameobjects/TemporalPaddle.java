@@ -19,9 +19,9 @@ import danogl.util.Vector2;
  * </p>
  *
  * @author Your Name
- * @see UserPaddle
+ * @see Paddle
  */
-public class TemporalPaddle extends UserPaddle {
+public class TemporalPaddle extends Paddle {
 
     private int numberOfHitsLeft; // Number of hits left before the paddle disappears
     private BrickerGameManager gameManager; // Reference to the game manager

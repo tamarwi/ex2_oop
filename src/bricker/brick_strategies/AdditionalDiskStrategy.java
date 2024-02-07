@@ -1,12 +1,7 @@
 package bricker.brick_strategies;
 
-import bricker.Constants;
-import bricker.Resources;
-import bricker.gameobjects.UserPaddle;
 import bricker.main.BrickerGameManager;
 import danogl.GameObject;
-import danogl.collisions.Collision;
-import danogl.util.Vector2;
 
 /**
  * AdditionalDiskStrategy represents strategy of adding another paddle to

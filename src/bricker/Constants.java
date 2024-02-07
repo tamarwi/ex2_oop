@@ -123,4 +123,14 @@ public class Constants {
     public static final int NUM_COLLISIONS_BEFORE_CAMERA_RESET = 4;
     public static final int GREEN_NUM_OF_LIVES = 3;
     public static final int YELLOW_NUM_OF_LIVES = 2;
+
+    public static final int GAME_FRAMERATE = 80;
+    public static final String WIN_PROMPT = "You win! Play again?";
+    public static final String LOSE_PROMPT = "You lose! Play again?";
+    public static final float MIDDLE = 0.5F;
+    public static final float WIDEN_FRAME_FACTOR = 1.2F;
+    public static final int BRICK_HEIGHT = 15;
+    public static final int WALL_WIDTH = 5;
+    public static final int SAFETY_LENGTH_FROM_WALL = Constants.WALL_WIDTH + 1;
+    public static final int SAFETY_HEIGHT_BETWEEN_BRICKS = Constants.BRICK_HEIGHT +3;
 }
