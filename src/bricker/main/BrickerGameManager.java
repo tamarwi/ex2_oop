@@ -7,6 +7,7 @@ import bricker.gameobjects.*;
 import danogl.GameManager;
 import danogl.GameObject;
 import danogl.collisions.Layer;
+import danogl.components.CoordinateSpace;
 import danogl.gui.*;
 import danogl.gui.rendering.Camera;
 import danogl.util.Vector2;
@@ -254,12 +255,16 @@ public class BrickerGameManager extends GameManager {
     private void createLives(ImageReader imageReader, UserInputListener inputListener) {
         Lives lives = new Lives(new Vector2(40, windowDimensions.y() - 30), Constants.HEART_DIMENSIONS, //TODO 20,150 random heart placement.
                 Resources.heartImage);
+        lives.setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
         gameObjects().addGameObject(lives, Layer.UI);
         GameObject[] livesGameObjects = lives.getHearts();
         for (int i = 0; i < lives.getNumberOfLivesLeft(); ++i) {
+            livesGameObjects[i].setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
             gameObjects().addGameObject(livesGameObjects[i], Layer.UI);
         }
-        gameObjects().addGameObject(lives.getNumericDisplay());
+        GameObject numericDisaplyGameObject = lives.getNumericDisplay();
+        numericDisaplyGameObject.setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
+        gameObjects().addGameObject(numericDisaplyGameObject);
         this.lives = lives;
     }
 
@@ -277,6 +282,7 @@ public class BrickerGameManager extends GameManager {
      */
     private void createBackground() {
         GameObject background = new GameObject(Vector2.ZERO, windowDimensions, Resources.backgroundImage);
+        background.setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
         gameObjects().addGameObject(background, Layer.BACKGROUND);
     }
 
