@@ -54,6 +54,7 @@ public class Brick extends GameObject {
      */
     @Override
     public boolean shouldCollideWith(GameObject other) {
-        return !other.getTag().equals(Constants.WALL_TAG);
+        return true;
+//        return !other.getTag().equals(Constants.WALL_TAG);
     }
 }
