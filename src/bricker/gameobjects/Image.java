@@ -24,7 +24,8 @@ public class Image extends GameObject {
      * @param renderable The renderable object for rendering the image.
      */
     public Image(Vector2 topLeftCorner, Renderable renderable){
-        super(topLeftCorner, Constants.HEART_DIMENSIONS, renderable); // Call superclass constructor with default dimensions
+        // Call superclass constructor with default dimensions
+        super(topLeftCorner, Constants.HEART_DIMENSIONS, renderable);
     }
 
     /**

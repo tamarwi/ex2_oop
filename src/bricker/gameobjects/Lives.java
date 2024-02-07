@@ -28,8 +28,9 @@ public class Lives extends GameObject {
     private final static int GREEN_NUMBER_OF_LIVES = 3; // Number of lives for green display
     private final static int YELLOW_NUMBER_OF_LIVES = 2; // Number of lives for yellow display
     private final static int RED_NUMBER_OF_LIVES = 1; // Number of lives for red display
-    private final static int X_NUMERIC_DISPLAY = 10;
-    private final static Vector2 HEART_DIFF_VECTOR = new Vector2(25, 0); // Vector difference between heart positions
+    private final static int X_NUMERIC_DISPLAY = 10; //X coordinate for numeric lives display.
+    // Vector difference between heart positions
+    private final static Vector2 HEART_DIFF_VECTOR = new Vector2(25, 0);
 
 
     /**
@@ -49,13 +50,15 @@ public class Lives extends GameObject {
 
         // Create heart GameObjects
         for (int i = 0; i < Constants.MAX_NUMBER_OF_LIVES; i++) {
-            this.hearts[i] = new Image(topLeftCorner.add(Lives.HEART_DIFF_VECTOR.mult(i)), Resources.heartImage);
+            this.hearts[i] = new Image(topLeftCorner.add(Lives.HEART_DIFF_VECTOR.mult(i)),
+                    Resources.heartImage);
         }
 
         // Create and initialize numeric lives display
         this.numericLivesDisplay = new TextRenderable(String.valueOf(this.numberOfLivesLeft));
         updateNumericLivesDisplay();
-        this.numericLivesGameObject = new GameObject((new Vector2(Lives.X_NUMERIC_DISPLAY, (int) topLeftCorner.y())),
+        this.numericLivesGameObject = new GameObject((new Vector2(Lives.X_NUMERIC_DISPLAY,
+                (int) topLeftCorner.y())),
                 Constants.HEART_DIMENSIONS,
                 numericLivesDisplay);
     }

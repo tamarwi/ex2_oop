@@ -36,8 +36,10 @@ public class TemporalPaddle extends Paddle {
      * @param gameManager The game manager instance.
      */
     public TemporalPaddle(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable,
-                          UserInputListener inputListener, BrickerGameManager gameManager, Vector2 windowDimensions) {
-        super(topLeftCorner, dimensions, renderable, inputListener, windowDimensions); // Call superclass constructor
+                          UserInputListener inputListener, BrickerGameManager gameManager,
+                          Vector2 windowDimensions) {
+        // Call superclass constructor
+        super(topLeftCorner, dimensions, renderable, inputListener, windowDimensions);
         this.numberOfHitsLeft = Constants.TEMPORAL_PADDLE_NUM_HITS; // Initialize number of hits left
         this.gameManager = gameManager; // Set game manager reference
     }
