@@ -3,6 +3,7 @@ package bricker.gameobjects;
 import bricker.Constants;
 import bricker.Resources;
 import danogl.GameObject;
+import danogl.collisions.Layer;
 import danogl.gui.rendering.Renderable;
 import danogl.gui.rendering.TextRenderable;
 import danogl.util.Vector2;
@@ -14,12 +15,13 @@ import java.awt.*;
  * Extends GameObject.
  */
 public class Lives extends GameObject {
-    private GameObject[] hearts;
-    private TextRenderable stringLives;
+    private GameObject[] livesGameObjects;
+    private TextRenderable numericLivesDisplay;
     private int numberOfLivesLeft;
     private final static int GREEN_NUMBER_OF_LIVES = 3;
     private final static int YELLOW_NUMBER_OF_LIVES = 2;
     private final static int RED_NUMBER_OF_LIVES  = 1;
+    private final static int NUMERIC_LIVES_INDEX = 0;
 
     /**
      * Constructor for Lives.
@@ -33,29 +35,32 @@ public class Lives extends GameObject {
         super(topLeftCorner, dimensions, renderable);
 
         this.numberOfLivesLeft = Constants.NUMBER_OF_LIVES;
-        this.hearts = new GameObject[Constants.MAX_NUMBER_OF_LIVES];
+        this.livesGameObjects = new GameObject[Constants.MAX_NUMBER_OF_LIVES + 1];
         Vector2 heartDiffVector = new Vector2(25, 0);
-        for (int i = 0; i < Constants.MAX_NUMBER_OF_LIVES; i++) {
-            this.hearts[i] = new Image(topLeftCorner.add(heartDiffVector.mult(i)), Resources.heartImage);
+        for (int i = 1; i < Constants.MAX_NUMBER_OF_LIVES+1; i++) {
+            this.livesGameObjects[i] = new Image(topLeftCorner.add(heartDiffVector.mult(i)), Resources.heartImage);
         }
 
-        this.stringLives = new TextRenderable(String.valueOf(this.numberOfLivesLeft));
-        this.setColorOfLivesString();
+        this.numericLivesDisplay = new TextRenderable(String.valueOf(this.numberOfLivesLeft));
+        setColorOfLivesString();
+        this.livesGameObjects[Lives.NUMERIC_LIVES_INDEX] = new GameObject((new Vector2(10, (int)topLeftCorner.y())),
+                Constants.HEART_DIMENSIONS,
+                numericLivesDisplay);
     }
 
     private void setColorOfLivesString(){
         int numberOfLives = this.numberOfLivesLeft;
         if(numberOfLives >= Lives.GREEN_NUMBER_OF_LIVES)
         {
-            this.stringLives.setColor(Color.GREEN);
+            this.numericLivesDisplay.setColor(Color.GREEN);
         }
         else if(numberOfLives == Lives.YELLOW_NUMBER_OF_LIVES)
         {
-            this.stringLives.setColor(Color.YELLOW);
+            this.numericLivesDisplay.setColor(Color.YELLOW);
         }
         else if(numberOfLives == Lives.RED_NUMBER_OF_LIVES)
         {
-            this.stringLives.setColor(Color.RED);
+            this.numericLivesDisplay.setColor(Color.RED);
         }
 
     }
@@ -63,8 +68,8 @@ public class Lives extends GameObject {
      * Gets the array of heart GameObjects.
      * @return The array of heart GameObjects.
      */
-    public GameObject[] getHearts() {
-        return this.hearts;
+    public GameObject[] getLivesGameObjects() {
+        return this.livesGameObjects;
     }
 
     /**
@@ -75,6 +80,10 @@ public class Lives extends GameObject {
         return this.numberOfLivesLeft;
     }
 
+    public int getNumberOfGameObjects(){
+        return this.numberOfLivesLeft + 1;
+    }
+
     /**
      * Decreases the player's life count and returns the heart GameObject to remove.
      * @return The heart GameObject to remove, or null if the game ends.
@@ -83,9 +92,9 @@ public class Lives extends GameObject {
         if ((this.numberOfLivesLeft--) == 1) {
             return null; // End of game
         }
-        this.stringLives.setString(String.valueOf(this.numberOfLivesLeft));
+        this.numericLivesDisplay.setString(String.valueOf(this.numberOfLivesLeft));
         this.setColorOfLivesString();
-        return this.hearts[this.numberOfLivesLeft]; // More lives left
+        return this.livesGameObjects[this.numberOfLivesLeft]; // More lives left
     }
 
     /**
@@ -95,5 +104,7 @@ public class Lives extends GameObject {
         if (this.numberOfLivesLeft < Constants.MAX_NUMBER_OF_LIVES) {
             this.numberOfLivesLeft++;
         }
+        this.numericLivesDisplay.setString(String.valueOf(this.numberOfLivesLeft));
+        setColorOfLivesString();
     }
 }
