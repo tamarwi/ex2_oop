@@ -10,8 +10,10 @@ import danogl.collisions.Layer;
 import danogl.gui.*;
 import danogl.gui.rendering.Camera;
 import danogl.gui.rendering.Renderable;
+import danogl.gui.rendering.TextRenderable;
 import danogl.util.Vector2;
 
+import java.awt.*;
 import java.awt.event.InputMethodListener;
 import java.awt.event.KeyEvent;
 import java.util.Random;
@@ -25,6 +27,7 @@ public class BrickerGameManager extends GameManager {
     private int number_bricks_in_row;
     private Ball ball;
     private Lives lives;
+    private TextRenderable numericLivesDisplay;
     private Vector2 windowDimensions;
     private WindowController windowController;
     private int numberOfBricks;
@@ -110,6 +113,7 @@ public class BrickerGameManager extends GameManager {
             if (null == (heartToRemove = this.lives.decreaseLife())) {
                 prompt = "You lose! Play again?";
             } else {
+                updateNumericLifeDisplay(this.lives.getNumberOfLivesLeft()); //TODO: remove from here
                 gameObjects().removeGameObject(heartToRemove, Layer.UI);
                 resetBall();
             }
@@ -252,9 +256,14 @@ public class BrickerGameManager extends GameManager {
      * @param inputListener The UserInputListener object to handle user input.
      */
     private void createLives(ImageReader imageReader, UserInputListener inputListener) {
-        Lives lives = new Lives(new Vector2(20, 150), Constants.HEART_DIMENSIONS, //TODO 20,150 random heart placement.
+        numericLivesDisplay = new TextRenderable(String.valueOf(Constants.NUMBER_OF_LIVES));
+        numericLivesDisplay.setColor(Color.GREEN);
+        float maxY = windowController.getWindowDimensions().y();
+        Lives lives = new Lives(new Vector2(40, maxY-30), Constants.HEART_DIMENSIONS, //TODO 20,150 random heart placement.
                 Resources.heartImage);
         gameObjects().addGameObject(lives, Layer.UI);
+        gameObjects().addGameObject(new GameObject(new Vector2(10, maxY-30), Constants.HEART_DIMENSIONS,
+                numericLivesDisplay), Layer.UI);
         GameObject[] hearts = lives.getHearts();
         for (int i = 0; i < lives.getNumberOfLivesLeft(); ++i) {
             gameObjects().addGameObject(hearts[i], Layer.UI);
@@ -268,7 +277,19 @@ public class BrickerGameManager extends GameManager {
     public void addLife() {
         this.lives.increaseLife();
         int num_lives = this.lives.getNumberOfLivesLeft();
+        updateNumericLifeDisplay(num_lives);
         gameObjects().addGameObject(lives.getHearts()[num_lives - 1], Layer.UI);
+    }
+
+    private void updateNumericLifeDisplay(int num_lives){
+        if(num_lives >= Constants.GREEN_NUM_OF_LIVES){
+            this.numericLivesDisplay.setColor(Color.GREEN);
+        }else if(num_lives >= Constants.YELLOW_NUM_OF_LIVES){
+            this.numericLivesDisplay.setColor(Color.YELLOW);
+        }else{
+            this.numericLivesDisplay.setColor(Color.RED);
+        }
+        this.numericLivesDisplay.setString(String.valueOf(num_lives));
     }
 
     /**
@@ -290,7 +311,7 @@ public class BrickerGameManager extends GameManager {
     private void createBrick(ImageReader imageReader, Vector2 windowDimensions, Vector2 center, int length) {
         CollisionStrategy strategy = CollisionStrategyBuilder.BuildCollisionStrategy(this);
         GameObject brick = new Brick(Vector2.ZERO, new Vector2(length, 15),
-                Resources.brickImage, new DoubleStrategy(this));
+                Resources.brickImage, strategy);
         brick.setTopLeftCorner(center);
         gameObjects().addGameObject(brick);
     }
