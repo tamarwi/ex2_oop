@@ -2,8 +2,18 @@ tamarwi,(cse roei)
 324893825,(taz roei)
 
 Question answers:
-1. Tamar
-2.Tamar
+1. The design we chose in question 1.7 in order to enable the bricks to disappear
+is composition. Each implementation of the CollisionStrategy interface has an instance of
+BrickerGameManager. We added public functions to the BrickerGameManager API which enable to add and remove
+a given game object from the games' game objects list. This allows us to remove a specific brick upon
+collision using said added functions by caling them from the BrickerGameManager instance saved in the
+CollisionStrategy.
+
+Advantages:
+
+Disadvantages:
+
+2. We implemented the showing of lives
 3.Roei
 4.Roei
 5.Roei

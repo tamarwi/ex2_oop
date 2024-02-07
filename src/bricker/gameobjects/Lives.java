@@ -13,6 +13,7 @@ import danogl.util.Vector2;
 public class Lives extends GameObject {
     private GameObject[] hearts;
     private int numberOfLivesLeft;
+    private final static int GREEN_NUMBER_OF_LIVES = 3;
 
     /**
      * Constructor for Lives.
@@ -31,6 +32,7 @@ public class Lives extends GameObject {
         for (int i = 0; i < Constants.MAX_NUMBER_OF_LIVES; i++) {
             this.hearts[i] = new Image(topLeftCorner.add(heartDiffVector.mult(i)), Resources.heartImage);
         }
+
     }
 
     /**
