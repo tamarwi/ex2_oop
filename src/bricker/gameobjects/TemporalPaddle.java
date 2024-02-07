@@ -8,7 +8,7 @@ import danogl.gui.UserInputListener;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
-public class TemporalPaddle extends UserPaddle{
+public class TemporalPaddle extends Paddle {
     private int numberOfHitsLeft;
     private BrickerGameManager gameManager;
     public TemporalPaddle(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable,

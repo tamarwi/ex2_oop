@@ -21,7 +21,6 @@ public class Lives extends GameObject {
     private final static int GREEN_NUMBER_OF_LIVES = 3;
     private final static int YELLOW_NUMBER_OF_LIVES = 2;
     private final static int RED_NUMBER_OF_LIVES = 1;
-    private final static int NUMERIC_LIVES_INDEX = 0;
 
     /**
      * Constructor for Lives.

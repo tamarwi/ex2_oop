@@ -8,16 +8,16 @@ import danogl.util.Vector2;
 import java.awt.event.KeyEvent;
 
 /**
- * UserPaddle class represents the paddle controlled by the user.
+ * Paddle class represents the paddle controlled by the user.
  * Extends GameObject.
  */
-public class UserPaddle extends GameObject {
+public class Paddle extends GameObject {
 
     private static final float MOVEMENT_SPEED = 300;
     private UserInputListener inputListener;
 
     /**
-     * Constructor for UserPaddle.
+     * Constructor for Paddle.
      * @param topLeftCorner The position of the object, in window coordinates (pixels).
      *                      Note that (0,0) is the top-left corner of the window.
      * @param dimensions The width and height in window coordinates.
@@ -25,8 +25,8 @@ public class UserPaddle extends GameObject {
      *                   the GameObject will not be rendered.
      * @param inputListener The UserInputListener object to handle user input.
      */
-    public UserPaddle(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable,
-                      UserInputListener inputListener) {
+    public Paddle(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable,
+                  UserInputListener inputListener) {
         super(topLeftCorner, dimensions, renderable);
         this.inputListener = inputListener;
     }

@@ -20,11 +20,10 @@ import java.util.Random;
  * Extends GameManager.
  */
 public class BrickerGameManager extends GameManager {
-    private int number_brick_rows;
-    private int number_bricks_in_row;
+    private int numberBrickRows;
+    private int numberBricksInRow;
     private Ball ball;
     private Lives lives;
-//    private TextRenderable numericLivesDisplay;
     private Vector2 windowDimensions;
     private WindowController windowController;
     private int numberOfBricks;
@@ -216,7 +215,7 @@ public class BrickerGameManager extends GameManager {
      * @param inputListener The UserInputListener object to handle user input.
      */
     private void createPaddle(ImageReader imageReader, UserInputListener inputListener) {
-        GameObject userPaddle = new UserPaddle(new Vector2(0, 0), new Vector2(Constants.PADDLE_WIDTH,
+        GameObject userPaddle = new Paddle(new Vector2(0, 0), new Vector2(Constants.PADDLE_WIDTH,
                 Constants.PADDLE_HEIGHT),
                 Resources.paddleImage, inputListener);
         userPaddle.setCenter(new Vector2(windowDimensions.x() / 2, (int) windowDimensions.y() - 30));
@@ -258,8 +257,10 @@ public class BrickerGameManager extends GameManager {
         lives.setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
         gameObjects().addGameObject(lives, Layer.UI);
         GameObject[] livesGameObjects = lives.getHearts();
-        for (int i = 0; i < lives.getNumberOfLivesLeft(); ++i) {
+        for (int i=0; i < Constants.MAX_NUMBER_OF_LIVES; ++i){
             livesGameObjects[i].setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
+        }
+        for (int i = 0; i < lives.getNumberOfLivesLeft(); ++i) {
             gameObjects().addGameObject(livesGameObjects[i], Layer.UI);
         }
         GameObject numericDisaplyGameObject = lives.getNumericDisplay();
@@ -324,15 +325,15 @@ public class BrickerGameManager extends GameManager {
      * @param imageReader The ImageReader object to read brick image.
      */
     private void createBricks(ImageReader imageReader) {
-        for (int i = 0; i < this.number_brick_rows; i++) {
-            for (int j = 0; j < this.number_bricks_in_row; j++) {
+        for (int i = 0; i < this.numberBrickRows; i++) {
+            for (int j = 0; j < this.numberBricksInRow; j++) {
                 createBrick(imageReader,
                         windowDimensions,
-                        new Vector2((((windowDimensions.x() - (this.number_bricks_in_row - 1) * 5) / number_bricks_in_row) * j), (i * 15) + (5 * i)),
-                        (int) (windowDimensions.x() / number_bricks_in_row) - 5);
+                        new Vector2((((windowDimensions.x() - (this.numberBricksInRow - 1) * 5) / numberBricksInRow) * j), (i * 15) + (5 * i)),
+                        (int) (windowDimensions.x() / numberBricksInRow) - 5);
             }
         }
-        this.numberOfBricks = this.number_bricks_in_row * this.number_brick_rows;
+        this.numberOfBricks = this.numberBricksInRow * this.numberBrickRows;
     }
 
     /**
@@ -360,11 +361,11 @@ public class BrickerGameManager extends GameManager {
      */
     public void getBrickRowsInfo(String[] args) {
         if (args.length == 0) {
-            this.number_brick_rows = Constants.DEFAULT_NUMBER_BRICK_ROWS;
-            this.number_bricks_in_row = Constants.DEFAULT_NUMBER_BRICKS_IN_ROW;
+            this.numberBrickRows = Constants.DEFAULT_NUMBER_BRICK_ROWS;
+            this.numberBricksInRow = Constants.DEFAULT_NUMBER_BRICKS_IN_ROW;
         } else {
-            this.number_brick_rows = Integer.parseInt(args[0]);
-            this.number_bricks_in_row = Integer.parseInt(args[1]);
+            this.numberBrickRows = Integer.parseInt(args[0]);
+            this.numberBricksInRow = Integer.parseInt(args[1]);
         }
     }
 
