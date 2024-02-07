@@ -25,7 +25,7 @@ public class CollisionStrategyBuilder {
     public static CollisionStrategy BuildCollisionStrategyForDouble(BrickerGameManager gameManager){
         Random r = new Random();
         double res = r.nextDouble();
-        if(res <= 0.2){
+        if(res < 0.2){
             return new DoubleStrategy(gameManager);
         }else if(res < 0.4){
             return new AdditionalBallStrategy(gameManager);

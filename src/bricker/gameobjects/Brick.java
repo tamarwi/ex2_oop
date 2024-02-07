@@ -12,8 +12,9 @@ import danogl.util.Vector2;
  * Extends GameObject.
  */
 public class Brick extends GameObject {
-    private static final int BRICK_HEIGHT = 15;
-    private CollisionStrategy collisionStrategy;
+    private static final int BRICK_HEIGHT  = 15;
+    private boolean isDestroyed;
+    private final CollisionStrategy collisionStrategy;
 
     /**
      * Constructor for Brick.
@@ -28,6 +29,7 @@ public class Brick extends GameObject {
                  CollisionStrategy collisionStrategy) {
         super(topLeftCorner, dimensions, renderable);
         this.collisionStrategy = collisionStrategy;
+        this.isDestroyed = false;
     }
 
     /**
@@ -37,8 +39,11 @@ public class Brick extends GameObject {
      */
     @Override
     public void onCollisionEnter(GameObject other, Collision collision) {
-        super.onCollisionEnter(other, collision);
-        this.collisionStrategy.onCollision(this, other);
+            if(!this.isDestroyed){
+                super.onCollisionEnter(other, collision);
+                this.collisionStrategy.onCollision(this, other);
+            }
+            this.isDestroyed = true;
     }
 
     /**
