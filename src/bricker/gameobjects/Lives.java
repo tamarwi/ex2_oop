@@ -6,49 +6,61 @@ import danogl.GameObject;
 import danogl.gui.rendering.Renderable;
 import danogl.gui.rendering.TextRenderable;
 import danogl.util.Vector2;
-
 import java.awt.*;
 
 /**
- * Lives class represents the player's lives in the game.
+ * Represents the player's lives in the game.
  * Extends GameObject.
+ *
+ * <p>
+ * The Lives class manages the player's life count, displays it visually with heart GameObjects,
+ * and updates the display color based on the remaining lives.
+ * </p>
+ *
+ * @author Your Name
+ * @see GameObject
  */
 public class Lives extends GameObject {
-    private GameObject[] hearts;
-    private GameObject numericLivesGameObject;
-    private TextRenderable numericLivesDisplay;
-    private int numberOfLivesLeft;
-    private final static int GREEN_NUMBER_OF_LIVES = 3;
-    private final static int YELLOW_NUMBER_OF_LIVES = 2;
-    private final static int RED_NUMBER_OF_LIVES = 1;
-    private final static int NUMERIC_LIVES_INDEX = 0;
+
+    private GameObject[] hearts; // Array of heart GameObjects
+    private GameObject numericLivesGameObject; // GameObject for displaying numeric lives
+    private TextRenderable numericLivesDisplay; // TextRenderable for displaying numeric lives
+    private int numberOfLivesLeft; // Number of lives left
+    private final static int GREEN_NUMBER_OF_LIVES = 3; // Number of lives for green display
+    private final static int YELLOW_NUMBER_OF_LIVES = 2; // Number of lives for yellow display
+    private final static int RED_NUMBER_OF_LIVES = 1; // Number of lives for red display
+    private final static int X_NUMERIC_DISPLAY = 10;
+    private final static Vector2 HEART_DIFF_VECTOR = new Vector2(25, 0); // Vector difference between heart positions
 
     /**
      * Constructor for Lives.
      *
-     * @param topLeftCorner The position of the object, in window coordinates (pixels).
-     *                      Note that (0,0) is the top-left corner of the window.
-     * @param dimensions    The width and height in window coordinates.
+     * @param topLeftCorner The top-left corner position of the object, in window coordinates (pixels).
+     * @param dimensions    The width and height of the object in window coordinates.
      * @param renderable    The Renderable representing the object. Can be null, in which case
      *                      the GameObject will not be rendered.
      */
     public Lives(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable) {
-        super(topLeftCorner, dimensions, renderable);
+        super(topLeftCorner, dimensions, renderable); // Call superclass constructor
 
+        // Initialize instance variables
         this.numberOfLivesLeft = Constants.NUMBER_OF_LIVES;
         this.hearts = new GameObject[Constants.MAX_NUMBER_OF_LIVES];
-        Vector2 heartDiffVector = new Vector2(25, 0);
+
+        // Create heart GameObjects
         for (int i = 0; i < Constants.MAX_NUMBER_OF_LIVES; i++) {
-            this.hearts[i] = new Image(topLeftCorner.add(heartDiffVector.mult(i)), Resources.heartImage);
+            this.hearts[i] = new Image(topLeftCorner.add(Lives.HEART_DIFF_VECTOR.mult(i)), Resources.heartImage);
         }
 
+        // Create and initialize numeric lives display
         this.numericLivesDisplay = new TextRenderable(String.valueOf(this.numberOfLivesLeft));
         updateNumericLivesDisplay();
-        this.numericLivesGameObject = new GameObject((new Vector2(10, (int) topLeftCorner.y())),
+        this.numericLivesGameObject = new GameObject((new Vector2(Lives.X_NUMERIC_DISPLAY, (int) topLeftCorner.y())),
                 Constants.HEART_DIMENSIONS,
                 numericLivesDisplay);
     }
 
+    // Method to update the color of numeric lives display based on remaining lives
     private void updateNumericLivesDisplay() {
         int numberOfLives = this.numberOfLivesLeft;
         if (numberOfLives >= Lives.GREEN_NUMBER_OF_LIVES) {
@@ -70,6 +82,11 @@ public class Lives extends GameObject {
         return this.hearts;
     }
 
+    /**
+     * Gets the GameObject for displaying numeric lives.
+     *
+     * @return The GameObject for displaying numeric lives.
+     */
     public GameObject getNumericDisplay() {
         return this.numericLivesGameObject;
     }
