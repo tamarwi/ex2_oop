@@ -121,4 +121,6 @@ public class Constants {
      * Number of collisions before resetting the camera focus on the ball.
      */
     public static final int NUM_COLLISIONS_BEFORE_CAMERA_RESET = 4;
+    public static final int GREEN_NUM_OF_LIVES = 3;
+    public static final int YELLOW_NUM_OF_LIVES = 2;
 }
