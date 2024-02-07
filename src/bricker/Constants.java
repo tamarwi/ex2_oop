@@ -21,6 +21,7 @@ public class Constants {
      * Tag for the main ball object.
      */
     public static final String MAIN_BALL_TAG = "MainBall";
+    public static final String PUCK_TAG = "Puck";
 
     /**
      * Speed vector for the heart power-up.

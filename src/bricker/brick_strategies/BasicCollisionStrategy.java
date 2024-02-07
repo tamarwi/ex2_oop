@@ -17,6 +17,7 @@ public class BasicCollisionStrategy implements CollisionStrategy {
      * @param gameManager The BrickerGameManager instance managing the game.
      */
     public BasicCollisionStrategy(BrickerGameManager gameManager){
+
         this.gameManager = gameManager;
     }
 

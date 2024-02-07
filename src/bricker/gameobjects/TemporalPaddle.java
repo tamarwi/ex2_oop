@@ -29,6 +29,8 @@ public class TemporalPaddle extends Paddle {
 
     @Override
     public boolean shouldCollideWith(GameObject other){
-        return !other.getTag().equals(Constants.WALL_TAG);
+
+        return other.getTag().equals(Constants.MAIN_BALL_TAG) ||
+                other.getTag().equals(Constants.PUCK_TAG);
     }
 }

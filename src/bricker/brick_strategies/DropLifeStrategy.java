@@ -30,7 +30,6 @@ public class DropLifeStrategy extends BasicCollisionStrategy implements Collisio
     public void onCollision(GameObject thisObj, GameObject otherObj){
         Heart heart = new Heart(thisObj.getCenter(), gameManager);
         gameManager.addGameObject(heart);
-        System.out.println(thisObj.toString() +"\n"+ otherObj.toString());
         super.onCollision(thisObj, otherObj);
     }
 }

@@ -30,6 +30,7 @@ public class BrickerGameManager extends GameManager {
     private UserInputListener inputListener;
     private TemporalPaddle temporalPaddle;
     private int lastBallNumCollisions;
+    private Ball[] puckArr;
 
     /**
      * Constructor
@@ -38,6 +39,7 @@ public class BrickerGameManager extends GameManager {
      */
     public BrickerGameManager(String windowTitle, Vector2 windowDimensions) {
         super(windowTitle, windowDimensions);
+        this.puckArr = new Ball[10];
     }
 
     /**
@@ -85,8 +87,35 @@ public class BrickerGameManager extends GameManager {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
+        checkForPucksOutOfBounds();
         checkForGameEnd();
         checkForCameraReset();
+    }
+
+    private void checkForPucksOutOfBounds(){
+        for(int i=0; i < this.puckArr.length; ++i){
+            Ball puck = this.puckArr[i];
+            if(puck != null){
+                float puckHeight = puck.getCenter().y();
+                if (puckHeight > windowDimensions.y()) {
+                    gameObjects().removeGameObject(puck);
+                }
+            }
+        }
+    }
+
+    public void addPuck(Ball puck){
+        for(int i=0; i < this.puckArr.length; ++i){
+            if(this.puckArr[i] == null){
+                this.puckArr[i] = puck;
+                addGameObject(puck);
+                return;
+            }
+        }
+        Ball[] copy = new Ball[this.puckArr.length * 2];
+        System.arraycopy(this.puckArr, 0, copy, 0, this.puckArr.length);
+        this.puckArr = copy;
+        addGameObject(puck);
     }
 
     /**
@@ -109,7 +138,6 @@ public class BrickerGameManager extends GameManager {
             if (null == (heartToRemove = this.lives.decreaseLife())) {
                 prompt = "You lose! Play again?";
             } else {
-//                updateNumericLifeDisplay(this.lives.getNumberOfLivesLeft()); //TODO: remove from here
                 gameObjects().removeGameObject(heartToRemove, Layer.UI);
                 resetBall();
             }
@@ -290,18 +318,32 @@ public class BrickerGameManager extends GameManager {
     /**
      * Creates a brick game object.
      *
-     * @param imageReader      The ImageReader object to read brick image.
-     * @param windowDimensions The dimensions of the game window.
-     * @param center           The center position of the brick.
-     * @param length           The length of the brick.
+     * @param topLeftCorner The top left corner position of the brick.
+     * @param length        The length of the brick.
      */
-    private void createBrick(ImageReader imageReader, Vector2 windowDimensions, Vector2 center, int length) {
+    private void createBrick(Vector2 topLeftCorner, int length) {
         CollisionStrategy strategy = CollisionStrategyBuilder.BuildCollisionStrategy(this);
-        GameObject brick = new Brick(Vector2.ZERO, new Vector2(length, 15),
+        GameObject brick = new Brick(topLeftCorner, new Vector2(length, 15),
                 Resources.brickImage, strategy);
-        brick.setTopLeftCorner(center);
         gameObjects().addGameObject(brick);
     }
+
+    /**
+     * Creates the bricks for the game.
+     *
+     * @param imageReader The ImageReader object to read brick image.
+     */
+    private void createBricks(ImageReader imageReader) {
+        int brick_length = (int) (windowDimensions.x() - 12 - (this.numberBricksInRow - 1)) / numberBricksInRow;
+        for (int i = 0; i < this.numberBrickRows; i++) {
+            for (int j = 0; j < this.numberBricksInRow; j++) {
+                createBrick(new Vector2((6 + j * brick_length), 6 + (i * 18)),
+                        brick_length);
+            }
+        }
+        this.numberOfBricks = this.numberBricksInRow * this.numberBrickRows;
+    }
+
 
     /**
      * Creates the wall game objects.
@@ -317,23 +359,6 @@ public class BrickerGameManager extends GameManager {
         gameObjects().addGameObject(leftWall);
         gameObjects().addGameObject(rightWall);
         gameObjects().addGameObject(topWall);
-    }
-
-    /**
-     * Creates the bricks for the game.
-     *
-     * @param imageReader The ImageReader object to read brick image.
-     */
-    private void createBricks(ImageReader imageReader) {
-        for (int i = 0; i < this.numberBrickRows; i++) {
-            for (int j = 0; j < this.numberBricksInRow; j++) {
-                createBrick(imageReader,
-                        windowDimensions,
-                        new Vector2((((windowDimensions.x() - (this.numberBricksInRow - 1) * 5) / numberBricksInRow) * j), (i * 15) + (5 * i)),
-                        (int) (windowDimensions.x() / numberBricksInRow) - 5);
-            }
-        }
-        this.numberOfBricks = this.numberBricksInRow * this.numberBrickRows;
     }
 
     /**

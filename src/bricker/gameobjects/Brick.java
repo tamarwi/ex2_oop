@@ -45,15 +45,4 @@ public class Brick extends GameObject {
             }
             this.isDestroyed = true;
     }
-
-    /**
-     * Determines if the brick should collide with another game object.
-     * Bricks should collide with all objects except walls.
-     * @param other The other game object.
-     * @return True if the brick should collide with the other game object, false otherwise.
-     */
-    @Override
-    public boolean shouldCollideWith(GameObject other) {
-        return !other.getTag().equals(Constants.WALL_TAG);
-    }
 }
