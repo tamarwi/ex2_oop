@@ -10,11 +10,27 @@ import danogl.util.Vector2;
 
 import java.util.Random;
 
+/**
+ * AdditionalBallStrategy represents strategy of adding 2 pucks to
+ * the game after collision with brick.
+ */
 public class AdditionalBallStrategy extends BasicCollisionStrategy implements CollisionStrategy{
+    /**
+     * Constructor for AdditionalBallStrategy
+     *
+     * @param gameManager The BrickerGameManager instance managing the game.
+     */
     public AdditionalBallStrategy(BrickerGameManager gameManager){
         super(gameManager);
     }
 
+    /**
+     * Handles the collision event between two game objects.
+     * Creates 2 pucks with random velocity directions with positive y value.
+     *
+     * @param thisObj The current game object involved in the collision.
+     * @param otherObj The other game object involved in the collision.
+     */
     @Override
     public void onCollision(GameObject thisObj, GameObject otherObj){
         Random random = new Random();

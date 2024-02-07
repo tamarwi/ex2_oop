@@ -13,6 +13,7 @@ public class BasicCollisionStrategy implements CollisionStrategy {
 
     /**
      * Constructor for BasicCollisionStrategy.
+     *
      * @param gameManager The BrickerGameManager instance managing the game.
      */
     public BasicCollisionStrategy(BrickerGameManager gameManager){
@@ -22,6 +23,7 @@ public class BasicCollisionStrategy implements CollisionStrategy {
     /**
      * Handles the collision event between two game objects.
      * Removes the current object and decreases the number of bricks in the game.
+     *
      * @param thisObj The current game object involved in the collision.
      * @param otherObj The other game object involved in the collision.
      */

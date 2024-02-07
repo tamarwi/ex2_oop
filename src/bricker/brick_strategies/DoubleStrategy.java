@@ -5,10 +5,21 @@ import bricker.main.BrickerGameManager;
 import danogl.GameObject;
 import danogl.collisions.Collision;
 
+/**
+ * DoubleStrategy represents a strategy where two collision strategies are applied simultaneously.
+ */
 public class DoubleStrategy extends BasicCollisionStrategy implements CollisionStrategy{
     private CollisionStrategy strategy1;
     private CollisionStrategy strategy2;
     private int numDoubleStrategy;
+
+    /**
+     * Constructs a DoubleStrategy.
+     * Generates 2 random strategies to be used on collision.
+     * This strategy will not hold more than 3 total collision strategies
+     * (For example: double strategy with another double strategy used internally).
+     * @param gameManager The BrickerGameManager instance managing the game.
+     */
     public DoubleStrategy(BrickerGameManager gameManager){
         super(gameManager);
         do{
@@ -24,10 +35,23 @@ public class DoubleStrategy extends BasicCollisionStrategy implements CollisionS
         }while(this.numDoubleStrategy > Constants.MAX_STRATEGIES_PER_BRICK);
     }
 
+    /**
+     * Retrieves the number of double strategies used internally (0/1/2).
+     * The number does not include double strategies inside double strategies (it is shallow).
+     * @return The number of double strategies used internally (0/1/2).
+     */
     public int getNumDoubleStrategy(){
         return this.numDoubleStrategy;
     }
 
+    /**
+     * Handles the collision event between two game objects.
+     * Increments the number of bricks in the game and triggers collision handling
+     * for both nested strategies.
+     *
+     * @param thisObj The current game object involved in the collision.
+     * @param otherObj The other game object involved in the collision.
+     */
     public void onCollision(GameObject thisObj, GameObject otherObj){
         gameManager.setNumberOfBricks(gameManager.getNumberOfBricks()+1);
         this.strategy1.onCollision(thisObj, otherObj);

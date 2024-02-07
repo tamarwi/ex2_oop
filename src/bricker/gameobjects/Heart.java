@@ -10,7 +10,7 @@ import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
 /**
- * Heart class represents a heart game object.
+ * Heart class represents a falling heart game object.
  * Extends GameObject.
  */
 public class Heart extends GameObject {
