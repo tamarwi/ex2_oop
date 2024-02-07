@@ -9,6 +9,9 @@ import danogl.collisions.Collision;
  * Implements CollisionStrategy interface.
  */
 public class BasicCollisionStrategy implements CollisionStrategy {
+    /**
+    An instance of the game manager to activate strategy on.
+     */
     protected BrickerGameManager gameManager;
 
     /**

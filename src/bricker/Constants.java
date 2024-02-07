@@ -21,6 +21,10 @@ public class Constants {
      * Tag for the main ball object.
      */
     public static final String MAIN_BALL_TAG = "MainBall";
+
+    /**
+     * Tag for the puck object.
+     */
     public static final String PUCK_TAG = "Puck";
 
     /**
@@ -122,16 +126,59 @@ public class Constants {
      * Number of collisions before resetting the camera focus on the ball.
      */
     public static final int NUM_COLLISIONS_BEFORE_CAMERA_RESET = 4;
+
+    /**
+     * Number of lives at which the display color changes to green.
+     */
     public static final int GREEN_NUM_OF_LIVES = 3;
+
+    /**
+     * Number of lives at which the display color changes to yellow.
+     */
     public static final int YELLOW_NUM_OF_LIVES = 2;
 
+    /**
+     * Framerate of the game.
+     */
     public static final int GAME_FRAMERATE = 80;
+
+    /**
+     * Prompt message displayed when the player wins.
+     */
     public static final String WIN_PROMPT = "You win! Play again?";
+
+    /**
+     * Prompt message displayed when the player loses.
+     */
     public static final String LOSE_PROMPT = "You lose! Play again?";
+
+    /**
+     * Value representing the middle position.
+     */
     public static final float MIDDLE = 0.5F;
+
+    /**
+     * Factor by which to widen the camera frame.
+     */
     public static final float WIDEN_FRAME_FACTOR = 1.2F;
+
+    /**
+     * Height of a brick.
+     */
     public static final int BRICK_HEIGHT = 15;
+
+    /**
+     * Width of the wall objects.
+     */
     public static final int WALL_WIDTH = 5;
+
+    /**
+     * Safety distance from the walls for placing bricks.
+     */
     public static final int SAFETY_LENGTH_FROM_WALL = Constants.WALL_WIDTH + 1;
-    public static final int SAFETY_HEIGHT_BETWEEN_BRICKS = Constants.BRICK_HEIGHT +3;
+
+    /**
+     * Safety distance between bricks.
+     */
+    public static final int SAFETY_HEIGHT_BETWEEN_BRICKS = Constants.BRICK_HEIGHT + 3;
 }

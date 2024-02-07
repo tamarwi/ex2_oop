@@ -19,16 +19,41 @@ import java.util.Random;
  * @see DropLifeStrategy
  */
 public class CollisionStrategyBuilder {
-
-    // Thresholds for determining which collision strategy to build
+    /**
+     * Threshold for when to use basic collision strategy.
+     */
     private final static double BASIC_COLLISION_STRATEGY_THRESHOLD = 0.5;
+    /**
+     * Threshold for when to use additional ball collision strategy.
+     */
     private final static double ADDITIONAL_BALL_COLLISION_STRATEGY_THRESHOLD = 0.6;
+    /**
+     * Threshold for when to use additional disk collision strategy.
+     */
     private final static double ADDITIONAL_DISK_COLLISION_STRATEGY_THRESHOLD = 0.7;
+    /**
+     * Threshold for when to use camera change strategy.
+     */
     private final static double CAMERA_CHANGE_STRATEGY = 0.8;
+    /**
+     * Threshold for when to use double strategy.
+     */
     private final static double DOUBLE_STRATEGY_THRESHOLD = 0.9;
+    /**
+     * Threshold for when to use double strategy after double strategy was picked.
+     */
     private final static double DOUBLE_DOUBLE_STRATEGY_THRESHOLD = 0.2;
+    /**
+     * Threshold for when to use additional ball collision strategy after double strategy was picked.
+     */
     private final static double DOUBLE_ADDITIONAL_BALL_COLLISION_STRATEGY_THRESHOLD = 0.4;
+    /**
+     * Threshold for when to use additional disk collision strategy after double strategy was picked.
+     */
     private final static double DOUBLE_ADDITIONAL_DISK_COLLISION_STRATEGY_THRESHOLD = 0.6;
+    /**
+     * Threshold for when to use camera change strategy after double strategy was picked.
+     */
     private final static double DOUBLE_CAMERA_CHANGE_STRATEGY = 0.8;
 
     /**

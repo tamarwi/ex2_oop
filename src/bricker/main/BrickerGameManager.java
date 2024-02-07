@@ -103,6 +103,9 @@ public class BrickerGameManager extends GameManager {
         checkForCameraReset();
     }
 
+    /**
+     * Checks for pucks that are out of bounds and removes them from the game.
+     */
     private void checkForPucksOutOfBounds(){
         for(int i=0; i < this.puckArr.length; ++i){
             Ball puck = this.puckArr[i];
