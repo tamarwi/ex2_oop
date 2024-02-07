@@ -33,6 +33,6 @@ public class BasicCollisionStrategy implements CollisionStrategy {
      */
     public void onCollision(GameObject thisObj, GameObject otherObj){
         gameManager.removeGameObject(thisObj);
-        gameManager.setNumberOfBricks(gameManager.getNumberOfBricks()-1);
+        gameManager.decreaseNumberOfBricks();
     }
 }

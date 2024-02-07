@@ -57,7 +57,7 @@ public class DoubleStrategy extends BasicCollisionStrategy implements CollisionS
      * @param otherObj The other game object involved in the collision.
      */
     public void onCollision(GameObject thisObj, GameObject otherObj){
-        gameManager.setNumberOfBricks(gameManager.getNumberOfBricks()+1);
+        gameManager.decreaseNumberOfBricks();
         this.strategy1.onCollision(thisObj, otherObj);
         this.strategy2.onCollision(thisObj, otherObj);
     }

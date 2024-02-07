@@ -378,29 +378,20 @@ public class BrickerGameManager extends GameManager {
     }
 
     /**
-     * Sets the number of bricks in the game.
+     * Decreases the number of bricks in the game by 1.
      *
-     * @param numberOfBricks The number of bricks to set.
      */
-    public void setNumberOfBricks(int numberOfBricks) {
-        this.numberOfBricks = numberOfBricks;
+    public void decreaseNumberOfBricks() {
+        --this.numberOfBricks;
     }
 
-    /**
-     * Gets the number of bricks in the game.
-     *
-     * @return The number of bricks.
-     */
-    public int getNumberOfBricks() {
-        return this.numberOfBricks;
-    }
 
     /**
      * Parses command line arguments to get the number of brick rows and bricks in each row.
      *
      * @param args The command line arguments.
      */
-    public void getBrickRowsInfo(String[] args) {
+    public void setBrickRowsInfo(String[] args) {
         if (args.length == 0) {
             this.numberBrickRows = Constants.DEFAULT_NUMBER_BRICK_ROWS;
             this.numberBricksInRow = Constants.DEFAULT_NUMBER_BRICKS_IN_ROW;
@@ -418,7 +409,7 @@ public class BrickerGameManager extends GameManager {
     public static void main(String[] args) {
         BrickerGameManager brickerGameManager = new BrickerGameManager("Bouncing ball",
                 new Vector2(700, 500));
-        brickerGameManager.getBrickRowsInfo(args);
+        brickerGameManager.setBrickRowsInfo(args);
         brickerGameManager.run();
     }
 }
