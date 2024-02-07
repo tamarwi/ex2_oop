@@ -77,7 +77,7 @@ public class BrickerGameManager extends GameManager {
         createBall();
 
         // Create user paddle.
-        createPaddle(imageReader, inputListener);
+        createPaddle(inputListener);
 
         // Create bricks.
         createBricks();
@@ -218,13 +218,12 @@ public class BrickerGameManager extends GameManager {
     /**
      * Creates the user paddle game object.
      *
-     * @param imageReader   The ImageReader object to read paddle image.
      * @param inputListener The UserInputListener object to handle user input.
      */
-    private void createPaddle(ImageReader imageReader, UserInputListener inputListener) {
+    private void createPaddle(UserInputListener inputListener) {
         GameObject userPaddle = new Paddle(new Vector2(0, 0), new Vector2(Constants.PADDLE_WIDTH,
                 Constants.PADDLE_HEIGHT),
-                Resources.paddleImage, inputListener);
+                Resources.paddleImage, inputListener, windowDimensions);
         userPaddle.setCenter(new Vector2((int) (windowDimensions.x() * Constants.MIDDLE),
                 (int) windowDimensions.y() - 30));
         userPaddle.setTag(Constants.MAIN_PADDLE_TAG);
