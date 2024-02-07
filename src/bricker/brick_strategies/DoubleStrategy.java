@@ -11,13 +11,13 @@ import danogl.collisions.Collision;
 public class DoubleStrategy extends BasicCollisionStrategy implements CollisionStrategy{
     private CollisionStrategy strategy1;
     private CollisionStrategy strategy2;
-    private int numDoubleStrategy;
 
     /**
      * Constructs a DoubleStrategy.
      * Generates 2 random strategies to be used on collision.
      * This strategy will not hold more than 3 total collision strategies
      * (For example: double strategy with another double strategy used internally).
+     *
      * @param gameManager The BrickerGameManager instance managing the game.
      */
     public DoubleStrategy(BrickerGameManager gameManager){
@@ -25,23 +25,27 @@ public class DoubleStrategy extends BasicCollisionStrategy implements CollisionS
         do{
             this.strategy1 = CollisionStrategyBuilder.BuildCollisionStrategyForDouble(gameManager);
             this.strategy2 = CollisionStrategyBuilder.BuildCollisionStrategyForDouble(gameManager);
-            this.numDoubleStrategy = 0;
-            if(this.strategy1 instanceof DoubleStrategy){
-                this.numDoubleStrategy += ((DoubleStrategy) this.strategy1).getNumDoubleStrategy() + 1;
-            }
-            if(this.strategy2 instanceof DoubleStrategy){
-                this.numDoubleStrategy += ((DoubleStrategy) this.strategy2).getNumDoubleStrategy() + 1;
-            }
-        }while(this.numDoubleStrategy > Constants.MAX_STRATEGIES_PER_BRICK);
+        }while(getNumStrategies() > Constants.MAX_STRATEGIES_PER_BRICK);
     }
 
     /**
-     * Retrieves the number of double strategies used internally (0/1/2).
-     * The number does not include double strategies inside double strategies (it is shallow).
-     * @return The number of double strategies used internally (0/1/2).
+     * Retrieves the total number of strategies that will be activated on collision.
+     *
+     * @return The total number of strategies that will be activated on collision.
      */
-    public int getNumDoubleStrategy(){
-        return this.numDoubleStrategy;
+    public int getNumStrategies(){
+        int numDoubleStrategy = 0;
+        if(this.strategy1 instanceof DoubleStrategy){
+            numDoubleStrategy += ((DoubleStrategy) this.strategy1).getNumStrategies();
+        } else{
+            ++numDoubleStrategy;
+        }
+        if(this.strategy2 instanceof DoubleStrategy){
+            numDoubleStrategy += ((DoubleStrategy) this.strategy2).getNumStrategies();
+        }else{
+            ++numDoubleStrategy;
+        }
+        return numDoubleStrategy;
     }
 
     /**

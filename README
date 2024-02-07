@@ -14,6 +14,49 @@ Advantages:
 Disadvantages:
 
 2. We implemented the showing of lives
-3.Roei
-4.Roei
+
+3. Implementation of every collision strategy:
+
+BasicCollisionStrategy - this is the father class that all other collision strategies inherit.
+It receives a BrickerGameManager and uses it to reduce the number of bricks when onCollision is called,
+also deleting the brick from the game.
+
+Adding Pucks:
+AdditionalBallStrategy - this class inherits BasicCollisionStrategy.
+When onCollision is called, 2 new pucks are created (using Ball class) and added to the game
+using gameManager.addPuck(puck). Then super.onCollision() is called.
+
+Adding Secondary Temporal Paddle:
+AdditionalDiskStrategy - this class inherits BasicCollisionStrategy.
+When onCollision is called, a new temporal secondary paddle is created (if not already exists)
+using gameManager.createTemporalPaddle().
+Then super.onCollision() is called.
+TemporalPaddle - a class for the temporal secondary paddle. It inherits Paddle and overrides
+onCollisionEnter to remove itself from the game after 4 hits, and overrides
+shouldCollideWith to interact only with the main ball and the pucks.
+
+Changing Camera View:
+CameraChangeStrategy - this class inherits BasicCollisionStrategy.
+When onCollision is called, the camera is set to focus on the main ball using
+gameManager.focusCameraOnBall(). Then super.onCollision() is called.
+
+Dropping Heart:
+DropLifeStrategy - this class inherits BasicCollisionStrategy.
+When onCollision is called, a new heart game object is created and added to the game.
+Then super.onCollision() is called.
+Heart - a class for hearts that are dropped from bricks and increase the number of lives.
+shouldCollideWith is overridden so it would only collide with main paddle.
+onCollisionEnter is overridden so the heart will add life and remove itself from the game upon collision.
+
+4. To implement the double collision strategy, we used DoubleStrategy class that inherits
+BasicCollisionStrategy, implements CollisionStrategy, and contains 2 CollisionStrategy variables.
+During the constructor, the 2 variables are initialized as random strategies using the builder function
+CollisionStrategyBuilder.BuildCollisionStrategyForDouble, and using getNumStrategies()
+we check that the total number of strategies that will be activated on collision by this
+strategy is lower than 3.
+If its not lower than \ equals 3, then we re-initialize the variables as random strategies until it is
+lower than \ equals 3.
+Then total number of strategies that will be activated on collision is calculated in the function
+getNumStrategies() using recursion.
+
 5.Roei
