@@ -132,14 +132,14 @@ public class BrickerGameManager extends GameManager {
         addGameObject(puck);
     }
 
-    /**
-     * Gets the dimensions of the game window.
-     *
-     * @return The Vector2 object representing the window dimensions.
-     */
-    public Vector2 getWindowDimensions() {
-        return this.windowDimensions;
-    }
+//    /** //TODO - DELETE IF UNNECESSARY
+//     * Gets the dimensions of the game window.
+//     *
+//     * @return The Vector2 object representing the window dimensions.
+//     */
+//    public Vector2 getWindowDimensions() {
+//        return this.windowDimensions;
+//    }
 
     /**
      * Checks for the end of the game.
@@ -149,10 +149,9 @@ public class BrickerGameManager extends GameManager {
         String prompt = "";
         GameObject heartToRemove = null;
         if (ballHeight > windowDimensions.y()) {
-            if (null == (heartToRemove = this.lives.decreaseLife())) {
+            if (!this.lives.decreaseLife()){
                 prompt = Constants.LOSE_PROMPT;
             } else {
-                gameObjects().removeGameObject(heartToRemove, Layer.UI);
                 resetBall();
             }
         }
@@ -221,6 +220,17 @@ public class BrickerGameManager extends GameManager {
         gameObjects().removeGameObject(gameObject);
     }
 
+
+    /**
+     * Removes a game object from the game.
+     *
+     * @param gameObject The game object to remove.
+     * @param layer The layer to remove it from.
+     */
+    public void removeGameObject(GameObject gameObject, int layer) {
+        gameObjects().removeGameObject(gameObject, layer);
+    }
+
     /**
      * Focuses the camera on the ball.
      */
@@ -230,8 +240,8 @@ public class BrickerGameManager extends GameManager {
                 new Camera(
                         ball, // Object to follow
                         Vector2.ZERO, // Follow the center of the object
-                        getWindowDimensions().mult(Constants.WIDEN_FRAME_FACTOR), // Widen the frame a bit
-                        getWindowDimensions() // Share the window dimensions
+                        this.windowDimensions.mult(Constants.WIDEN_FRAME_FACTOR), // Widen the frame a bit
+                        this.windowDimensions // Share the window dimensions
                 )
         );
     }
@@ -294,7 +304,7 @@ public class BrickerGameManager extends GameManager {
     private void createLives(ImageReader imageReader, UserInputListener inputListener) {
         // Initialize lives GameObject
         Lives lives = new Lives(new Vector2(40, windowDimensions.y() - 30), Constants.HEART_DIMENSIONS,
-                Resources.heartImage);
+                Resources.heartImage, this);
         lives.setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
         gameObjects().addGameObject(lives, Layer.UI);
         GameObject[] livesGameObjects = lives.getHearts();
@@ -391,7 +401,7 @@ public class BrickerGameManager extends GameManager {
      *
      * @param args The command line arguments.
      */
-    public void setBrickRowsInfo(String[] args) {
+    private void setBrickRowsInfo(String[] args) {
         if (args.length == 0) {
             this.numberBrickRows = Constants.DEFAULT_NUMBER_BRICK_ROWS;
             this.numberBricksInRow = Constants.DEFAULT_NUMBER_BRICKS_IN_ROW;

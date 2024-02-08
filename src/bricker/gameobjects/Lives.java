@@ -2,7 +2,9 @@ package bricker.gameobjects;
 
 import bricker.Constants;
 import bricker.Resources;
+import bricker.main.BrickerGameManager;
 import danogl.GameObject;
+import danogl.collisions.Layer;
 import danogl.gui.rendering.Renderable;
 import danogl.gui.rendering.TextRenderable;
 import danogl.util.Vector2;
@@ -21,6 +23,7 @@ import java.awt.*;
  * @see GameObject
  */
 public class Lives extends GameObject {
+    private BrickerGameManager gameManager;
     private GameObject[] hearts; // Array of heart GameObjects
     private GameObject numericLivesGameObject; // GameObject for displaying numeric lives
     private TextRenderable numericLivesDisplay; // TextRenderable for displaying numeric lives
@@ -41,10 +44,12 @@ public class Lives extends GameObject {
      * @param renderable    The Renderable representing the object. Can be null, in which case
      *                      the GameObject will not be rendered.
      */
-    public Lives(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable) {
+    public Lives(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable,
+                 BrickerGameManager gameManager) {
         super(topLeftCorner, dimensions, renderable); // Call superclass constructor
 
         // Initialize instance variables
+        this.gameManager = gameManager;
         this.numberOfLivesLeft = Constants.NUMBER_OF_LIVES;
         this.hearts = new GameObject[Constants.MAX_NUMBER_OF_LIVES];
 
@@ -106,14 +111,15 @@ public class Lives extends GameObject {
     /**
      * Decreases the player's life count and returns the heart GameObject to remove.
      *
-     * @return The heart GameObject to remove, or null if the game ends.
+     * @return true if life was decreased and more lives left, false otherwise.
      */
-    public GameObject decreaseLife() {
+    public boolean decreaseLife() {
         if ((this.numberOfLivesLeft--) == 1) {
-            return null; // End of game
+            return false; // End of game
         }
         updateNumericLivesDisplay();
-        return this.hearts[this.numberOfLivesLeft]; // More lives left
+        this.gameManager.removeGameObject(this.hearts[this.numberOfLivesLeft], Layer.UI);
+        return true; // More lives left
     }
 
     /**

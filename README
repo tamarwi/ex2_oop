@@ -2,77 +2,107 @@ tamarwi,roei.nathanzon
 324893825,213630361
 
 Question answers:
-1. The design we chose in question 1.7 in order to enable the bricks to disappear
-is composition. Each implementation of the CollisionStrategy interface has an instance of
-BrickerGameManager. We added public functions to the BrickerGameManager API which enable to add and remove
-a given game object from the games' game objects list. This allows us to remove a specific brick upon
-collision using said added functions by caling them from the BrickerGameManager instance saved in the
-CollisionStrategy.
+1.
+    The design we chose in question 1.7 in order to enable the bricks to disappear
+    is composition. Each implementation of the CollisionStrategy interface has an instance of
+    BrickerGameManager. We added public functions to the BrickerGameManager API which enables to add and remove
+    a given game object from the games' game objects list. This allows us to remove a specific brick upon
+    collision using said added functions by calling them from the BrickerGameManager instance saved in the
+    CollisionStrategy.
 
-Advantages:
+    Advantages:
+    This allows encapsulation for it hides the implementation of the gameObject removal from
+    the game manger game objects list. So we have the flexibility to add functionality on the game manager class
+    without needing to change code in the CollisionStrategy interface and the classes that implement it.
+    Furthermore, it implements the Single Responsibility Principle (SRP) we talked about in the lectures-
+    because it is part of the BasicCollisionStrategy to make a brick disappear, therefore, said
+    functionality needs to be implemented in that class and not it another.
 
-Disadvantages:
+    Disadvantages:
+    It increases the complexity of the code because it forces the user to know how
+    to use the BrickerGameManager API, even if they only want to use the CollisionStrategy.
+    In addition, it adds a dependency between the the class and interface because one cannot be without
+    the other. Moreover, composition adds a performance overhead because it requires a BrickGameManager object
+    to be initialized and in the memory.
 
-2. We implemented the showing of lives
 
-3. Implementation of every collision strategy:
 
-BasicCollisionStrategy - this is the father class that all other collision strategies inherit.
-It receives a BrickerGameManager and uses it to reduce the number of bricks when onCollision is called,
-also deleting the brick from the game.
+2.
+    We implemented the showing of lives by creating to classes- Lives class , Heart class - both extend
+    GameObject class. The objective of the Lives class is to be responsible for the numeric and graphic
+    showing of the lives left.
+    The lives class has a field of numberOfLivesLeft and a BrickGameManager instance.
+    The numeric display was done by saving a gameObject (TextRenderable with the numberOfLives field as a
+    String for its text) as private field for this class and adding in to the gameObject's list in
+    the BrickGameManager.
+    The graphic display was done by having a GameObject array which will hold all the hearts.
+    When adding\removing a heart we decrease the number in the numberOfLivesLeft field and in the numeric
+    display field by editing the text in the TextRenderable object. Concerning the graphic display, we
+    erase a heart from the game managers' game objects list (the rightmost one) se that it displays
+    the correct amount of hearts(==lives) left. We can do this by calling the function in the
+    BrickGameManagers' API which erases a given gameObject form a given layer.
 
-Adding Pucks:
-AdditionalBallStrategy - this class inherits BasicCollisionStrategy.
-When onCollision is called, 2 new pucks are created (using Ball class) and added to the game
-using gameManager.addPuck(puck). Then super.onCollision() is called.
+3.
+    Implementation of every collision strategy:
 
-Adding Secondary Temporal Paddle:
-AdditionalDiskStrategy - this class inherits BasicCollisionStrategy.
-When onCollision is called, a new temporal secondary paddle is created (if not already exists)
-using gameManager.createTemporalPaddle().
-Then super.onCollision() is called.
-TemporalPaddle - a class for the temporal secondary paddle. It inherits Paddle and overrides
-onCollisionEnter to remove itself from the game after 4 hits, and overrides
-shouldCollideWith to interact only with the main ball and the pucks.
+    BasicCollisionStrategy - this is the father class that all other collision strategies inherit.
+    It receives a BrickerGameManager and uses it to reduce the number of bricks when onCollision is called,
+    also deleting the brick from the game.
 
-Changing Camera View:
-CameraChangeStrategy - this class inherits BasicCollisionStrategy.
-When onCollision is called, the camera is set to focus on the main ball using
-gameManager.focusCameraOnBall(). Then super.onCollision() is called.
+    Adding Pucks:
+    AdditionalBallStrategy - this class inherits BasicCollisionStrategy.
+    When onCollision is called, 2 new pucks are created (using Ball class) and added to the game
+    using gameManager.addPuck(puck). Then super.onCollision() is called.
 
-Dropping Heart:
-DropLifeStrategy - this class inherits BasicCollisionStrategy.
-When onCollision is called, a new heart game object is created and added to the game.
-Then super.onCollision() is called.
-Heart - a class for hearts that are dropped from bricks and increase the number of lives.
-shouldCollideWith is overridden so it would only collide with main paddle.
-onCollisionEnter is overridden so the heart will add life and remove itself from the game upon collision.
+    Adding Secondary Temporal Paddle:
+    AdditionalDiskStrategy - this class inherits BasicCollisionStrategy.
+    When onCollision is called, a new temporal secondary paddle is created (if not already exists)
+    using gameManager.createTemporalPaddle().
+    Then super.onCollision() is called.
+    TemporalPaddle - a class for the temporal secondary paddle. It inherits Paddle and overrides
+    onCollisionEnter to remove itself from the game after 4 hits, and overrides
+    shouldCollideWith to interact only with the main ball and the pucks.
 
-4. To implement the double collision strategy, we used DoubleStrategy class that inherits
-BasicCollisionStrategy, implements CollisionStrategy, and contains 2 CollisionStrategy variables.
-During the constructor, the 2 variables are initialized as random strategies using the builder function
-CollisionStrategyBuilder.BuildCollisionStrategyForDouble, and using getNumStrategies()
-we check that the total number of strategies that will be activated on collision by this
-strategy is lower than 3.
-If its not lower than \ equals 3, then we re-initialize the variables as random strategies until it is
-lower than \ equals 3.
-Then total number of strategies that will be activated on collision is calculated in the function
-getNumStrategies() using recursion.
+    Changing Camera View:
+    CameraChangeStrategy - this class inherits BasicCollisionStrategy.
+    When onCollision is called, the camera is set to focus on the main ball using
+    gameManager.focusCameraOnBall(). Then super.onCollision() is called.
 
-5. Changes from the original API:
-We wanted to design the BrickerGameManager so that it will be responsible for how
-changes are made to the game and expose API that other classes will use to make
-changes in the game (for example adding pucks \ temporal Paddle).
-Because of that we added some new public methods in BrickerGameManager:
-    addPuck(Ball puck) - used by AdditionalBallStrategy to add puck
-    addGameObject(GameObject gameObject) - used by DropLifeStrategy to add falling heart
-    removeGameObject(GameObject gameObject) - used by objects to remove themself from the
-        game (for example falling heart after adding 1 life)
-    focusCameraOnBall() - used CameraChangeStrategy to change camera focus on the ball
-    createTemporalPaddle() - used by AdditionalDiskStrategy to add temporal paddle
-    removeTemporalPaddle() - used by TemporalPaddle to remove itself after 4 collisions
-    addLife() - used by the heart to add life on collision
-    decreaseNumberOfBricks() - used by Collision Strategies to decrease the number of
+    Dropping Heart:
+    DropLifeStrategy - this class inherits BasicCollisionStrategy.
+    When onCollision is called, a new heart game object is created and added to the game.
+    Then super.onCollision() is called.
+    Heart - a class for hearts that are dropped from bricks and increase the number of lives.
+    shouldCollideWith is overridden so it would only collide with main paddle.
+    onCollisionEnter is overridden so the heart will add life and remove itself from the game upon collision.
+
+4.
+    To implement the double collision strategy, we used DoubleStrategy class that inherits
+    BasicCollisionStrategy, implements CollisionStrategy, and contains 2 CollisionStrategy variables.
+    During the constructor, the 2 variables are initialized as random strategies using the builder function
+    CollisionStrategyBuilder.BuildCollisionStrategyForDouble, and using getNumStrategies()
+    we check that the total number of strategies that will be activated on collision by this
+    strategy is lower than 3.
+    If its not lower than \ equals 3, then we re-initialize the variables as random strategies until it is
+    lower than \ equals 3.
+    Then total number of strategies that will be activated on collision is calculated in the function
+    getNumStrategies() using recursion.
+
+5.
+    Changes from the original API:
+    We wanted to design the BrickerGameManager so that it will be responsible for how
+    changes are made to the game and expose API that other classes will use to make
+    changes in the game (for example adding pucks \ temporal Paddle).
+    Because of that we added some new public methods in BrickerGameManager:
+        addPuck(Ball puck) - used by AdditionalBallStrategy to add puck
+        addGameObject(GameObject gameObject) - used by DropLifeStrategy to add falling heart.
+        removeGameObject(GameObject gameObject) - used by objects to remove themself from the
+        game (for example falling heart after adding 1 life).
+        removeGameObject(GameObject gameObject, int layer) - used by objects to remove themself from the
+         game in the given layer (for example decrease of lives).
+        focusCameraOnBall() - used CameraChangeStrategy to change camera focus on the ball
+        createTemporalPaddle() - used by AdditionalDiskStrategy to add temporal paddle
+        removeTemporalPaddle() - used by TemporalPaddle to remove itself after 4 collisions
+        addLife() - used by the heart to add life on collision
+        decreaseNumberOfBricks() - used by Collision Strategies to decrease the number of
         bricks in the game.
-    getWindowDimensions() - #Tamar
-    setBrickRowsInfo(String[] args) - #Tamar
