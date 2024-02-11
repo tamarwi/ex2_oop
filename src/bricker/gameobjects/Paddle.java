@@ -10,7 +10,9 @@ import java.awt.event.KeyEvent;
 
 /**
  * Paddle class represents the paddle controlled by the user.
- * Extends GameObject.
+ *
+ * @author tamarwi, roei.nathanzon
+ * @see GameObject
  */
 public class Paddle extends GameObject {
 

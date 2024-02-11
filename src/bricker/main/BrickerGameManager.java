@@ -25,7 +25,7 @@ import java.util.Random;
  * and user input.
  * </p>
  *
- * @author Your Name
+ * @author tamarwi, roei.nathanzon
  * @see GameManager
  */
 public class BrickerGameManager extends GameManager {
@@ -44,7 +44,7 @@ public class BrickerGameManager extends GameManager {
     /**
      * Constructor for BrickerGameManager.
      *
-     * @param windowTitle The title of the game window.
+     * @param windowTitle      The title of the game window.
      * @param windowDimensions The dimensions of the game window.
      */
     public BrickerGameManager(String windowTitle, Vector2 windowDimensions) {
@@ -106,10 +106,10 @@ public class BrickerGameManager extends GameManager {
     /**
      * Checks for pucks that are out of bounds and removes them from the game.
      */
-    private void checkForPucksOutOfBounds(){
-        for(int i=0; i < this.puckArr.length; ++i){
+    private void checkForPucksOutOfBounds() {
+        for (int i = 0; i < this.puckArr.length; ++i) {
             Ball puck = this.puckArr[i];
-            if(puck != null){
+            if (puck != null) {
                 float puckHeight = puck.getCenter().y();
                 if (puckHeight > windowDimensions.y()) {
                     gameObjects().removeGameObject(puck);
@@ -122,11 +122,12 @@ public class BrickerGameManager extends GameManager {
      * Adds a puck (Ball object) to the game manager.
      * If there is an available slot in the puck array, the puck is added to that slot.
      * If all slots are filled, the puck array is resized and the puck is added.
+     *
      * @param puck The puck (Ball object) to be added.
      */
-    public void addPuck(Ball puck){
-        for(int i=0; i < this.puckArr.length; ++i){
-            if(this.puckArr[i] == null){
+    public void addPuck(Ball puck) {
+        for (int i = 0; i < this.puckArr.length; ++i) {
+            if (this.puckArr[i] == null) {
                 this.puckArr[i] = puck;
                 addGameObject(puck);
                 return;
@@ -146,7 +147,7 @@ public class BrickerGameManager extends GameManager {
         String prompt = "";
         GameObject heartToRemove = null;
         if (ballHeight > windowDimensions.y()) {
-            if (!this.lives.decreaseLife()){
+            if (!this.lives.decreaseLife()) {
                 prompt = Constants.LOSE_PROMPT;
             } else {
                 resetBall();
@@ -222,7 +223,7 @@ public class BrickerGameManager extends GameManager {
      * Removes a game object from the game.
      *
      * @param gameObject The game object to remove.
-     * @param layer The layer to remove it from.
+     * @param layer      The layer to remove it from.
      */
     public void removeGameObject(GameObject gameObject, int layer) {
         gameObjects().removeGameObject(gameObject, layer);
@@ -305,7 +306,7 @@ public class BrickerGameManager extends GameManager {
         lives.setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
         gameObjects().addGameObject(lives, Layer.UI);
         GameObject[] livesGameObjects = lives.getHearts();
-        for (int i=0; i < Constants.MAX_NUMBER_OF_LIVES; ++i){
+        for (int i = 0; i < Constants.MAX_NUMBER_OF_LIVES; ++i) {
             livesGameObjects[i].setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
         }
         for (int i = 0; i < lives.getNumberOfLivesLeft(); ++i) {
@@ -350,7 +351,6 @@ public class BrickerGameManager extends GameManager {
 
     /**
      * Creates the bricks for the game.
-     *
      */
     private void createBricks() {
         int brick_length = (int) (windowDimensions.x() - (Constants.SAFETY_LENGTH_FROM_WALL * 2)
@@ -386,7 +386,6 @@ public class BrickerGameManager extends GameManager {
 
     /**
      * Decreases the number of bricks in the game by 1.
-     *
      */
     public void decreaseNumberOfBricks() {
         --this.numberOfBricks;

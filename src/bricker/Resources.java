@@ -7,6 +7,8 @@ import danogl.gui.rendering.Renderable;
 
 /**
  * Resources class manages the game's graphical and audio resources.
+ *
+ * @author tamarwi, roei.nathanzon
  */
 public class Resources {
     /**
@@ -46,6 +48,7 @@ public class Resources {
 
     /**
      * Initializes the game resources.
+     *
      * @param imageReader ImageReader object to read image resources.
      * @param soundReader SoundReader object to read sound resources.
      */

@@ -12,7 +12,7 @@ import danogl.util.Vector2;
  * Keeps track of the number of collisions it has encountered.
  * Extends the GameObject class.
  *
- * @author Your Name
+ * @author tamarwi, roei.nathanzon
  * @see GameObject
  */
 public class Ball extends GameObject {
@@ -23,9 +23,9 @@ public class Ball extends GameObject {
     /**
      * Constructor for creating a Ball object.
      *
-     * @param topLeftCorner The top-left corner position of the ball.
-     * @param dimensions The dimensions (size) of the ball.
-     * @param renderable The renderable object for rendering the ball.
+     * @param topLeftCorner  The top-left corner position of the ball.
+     * @param dimensions     The dimensions (size) of the ball.
+     * @param renderable     The renderable object for rendering the ball.
      * @param collisionSound The sound to be played upon collision.
      */
     public Ball(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable,
@@ -42,7 +42,7 @@ public class Ball extends GameObject {
      * Increments the collision counter.
      * Plays the collision sound.
      *
-     * @param other The GameObject with which the ball collided.
+     * @param other     The GameObject with which the ball collided.
      * @param collision Information about the collision.
      */
     @Override
@@ -59,7 +59,7 @@ public class Ball extends GameObject {
      *
      * @return The number of collisions encountered.
      */
-    public int getCollisionCounter(){
+    public int getCollisionCounter() {
         return this.collisionCounter; // Return collision counter
     }
 }

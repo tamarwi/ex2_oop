@@ -5,6 +5,8 @@ import danogl.util.Vector2;
 
 /**
  * Constants class contains constant values used throughout the game.
+ *
+ * @author tamarwi, roei.nathanzon
  */
 public class Constants {
     /**

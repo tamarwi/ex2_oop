@@ -18,7 +18,7 @@ import danogl.util.Vector2;
  * of disappearing after a certain number of collisions with other GameObjects.
  * </p>
  *
- * @author Your Name
+ * @author tamarwi, roei.nathanzon
  * @see Paddle
  */
 public class TemporalPaddle extends Paddle {
@@ -30,10 +30,10 @@ public class TemporalPaddle extends Paddle {
      * Constructor for creating a TemporalPaddle object.
      *
      * @param topLeftCorner The top-left corner position of the paddle.
-     * @param dimensions The dimensions (size) of the paddle.
-     * @param renderable The renderable object for rendering the paddle.
+     * @param dimensions    The dimensions (size) of the paddle.
+     * @param renderable    The renderable object for rendering the paddle.
      * @param inputListener The input listener for handling user input.
-     * @param gameManager The game manager instance.
+     * @param gameManager   The game manager instance.
      */
     public TemporalPaddle(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable,
                           UserInputListener inputListener, BrickerGameManager gameManager,
@@ -49,7 +49,7 @@ public class TemporalPaddle extends Paddle {
      * Overrides the onCollisionEnter method from the superclass.
      * Decrements the number of hits left, and if it reaches zero, removes the paddle from the game.
      *
-     * @param other The GameObject with which the paddle collided.
+     * @param other     The GameObject with which the paddle collided.
      * @param collision Information about the collision.
      */
     @Override
@@ -70,7 +70,7 @@ public class TemporalPaddle extends Paddle {
      * @return True if the paddle should collide with the other GameObject, false otherwise.
      */
     @Override
-    public boolean shouldCollideWith(GameObject other){
+    public boolean shouldCollideWith(GameObject other) {
 
         return other.getTag().equals(Constants.MAIN_BALL_TAG) ||
                 other.getTag().equals(Constants.PUCK_TAG); //paddle should only collide with balls

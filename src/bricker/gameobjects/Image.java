@@ -12,7 +12,7 @@ import danogl.util.Vector2;
  * The image does not participate in collisions with other GameObjects.
  * Extends the GameObject class.
  *
- * @author Your Name
+ * @author tamarwi, roei.nathanzon
  * @see GameObject
  */
 public class Image extends GameObject {
@@ -21,9 +21,9 @@ public class Image extends GameObject {
      * Constructor for creating an Image object.
      *
      * @param topLeftCorner The top-left corner position of the image.
-     * @param renderable The renderable object for rendering the image.
+     * @param renderable    The renderable object for rendering the image.
      */
-    public Image(Vector2 topLeftCorner, Renderable renderable){
+    public Image(Vector2 topLeftCorner, Renderable renderable) {
         // Call superclass constructor with default dimensions
         super(topLeftCorner, Constants.HEART_DIMENSIONS, renderable);
     }
@@ -37,7 +37,7 @@ public class Image extends GameObject {
      * @return Always returns false, indicating no collision should occur.
      */
     @Override
-    public boolean shouldCollideWith(GameObject other){
+    public boolean shouldCollideWith(GameObject other) {
         return false; // Images do not collide with any other GameObject
     }
 }

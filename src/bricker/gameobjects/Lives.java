@@ -8,6 +8,7 @@ import danogl.collisions.Layer;
 import danogl.gui.rendering.Renderable;
 import danogl.gui.rendering.TextRenderable;
 import danogl.util.Vector2;
+
 import java.awt.*;
 
 /**
@@ -19,7 +20,7 @@ import java.awt.*;
  * and updates the display color based on the remaining lives.
  * </p>
  *
- * @author Your Name
+ * @author tamarwi, roei.nathanzon
  * @see GameObject
  */
 public class Lives extends GameObject {

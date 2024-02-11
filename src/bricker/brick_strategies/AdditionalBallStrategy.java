@@ -13,6 +13,10 @@ import java.util.Random;
 /**
  * AdditionalBallStrategy represents strategy of adding 2 pucks to
  * the game after collision with brick.
+ *
+ * @author tamarwi, roei.nathanzon
+ * @see BasicCollisionStrategy
+ * @see CollisionStrategy
  */
 public class AdditionalBallStrategy extends BasicCollisionStrategy implements CollisionStrategy {
     private final static float PUCK_BALL_RATIO = 0.75f;

@@ -11,17 +11,20 @@ import danogl.util.Vector2;
 
 /**
  * Heart class represents a falling heart game object.
- * Extends GameObject.
+ *
+ * @author tamarwi, roei.nathanzon
+ * @see GameObject
  */
 public class Heart extends GameObject {
     private BrickerGameManager gameManager;
 
     /**
      * Constructor for Heart.
+     *
      * @param topLeftCorner The top left corner position of the heart.
-     * @param gameManager The BrickerGameManager instance managing the game.
+     * @param gameManager   The BrickerGameManager instance managing the game.
      */
-    public Heart(Vector2 topLeftCorner, BrickerGameManager gameManager){
+    public Heart(Vector2 topLeftCorner, BrickerGameManager gameManager) {
         super(topLeftCorner, Constants.HEART_DIMENSIONS, Resources.heartImage);
         this.setVelocity(Constants.HEART_SPEED);
         this.gameManager = gameManager;
@@ -29,7 +32,8 @@ public class Heart extends GameObject {
 
     /**
      * Handles the event when a collision occurs with another game object.
-     * @param other The other game object involved in the collision.
+     *
+     * @param other     The other game object involved in the collision.
      * @param collision The Collision object representing the collision information.
      */
     @Override
@@ -42,11 +46,12 @@ public class Heart extends GameObject {
     /**
      * Determines if the heart should collide with another game object.
      * Hearts should only collide with the main paddle.
+     *
      * @param other The other game object.
      * @return True if the heart should collide with the other game object, false otherwise.
      */
     @Override
-    public boolean shouldCollideWith(GameObject other){
+    public boolean shouldCollideWith(GameObject other) {
         return other.getTag().equals(Constants.MAIN_PADDLE_TAG);
     }
 }

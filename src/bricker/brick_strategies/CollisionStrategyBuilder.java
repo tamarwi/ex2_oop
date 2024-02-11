@@ -9,14 +9,7 @@ import java.util.Random;
  * Strategies include basic collision, additional ball collision, additional disk collision,
  * camera change, double strategy, and drop life strategy.
  *
- * @author Your Name
- * @see CollisionStrategy
- * @see BasicCollisionStrategy
- * @see AdditionalBallStrategy
- * @see AdditionalDiskStrategy
- * @see CameraChangeStrategy
- * @see DoubleStrategy
- * @see DropLifeStrategy
+ * @author tamarwi, roei.nathanzon
  */
 public class CollisionStrategyBuilder {
     /**
