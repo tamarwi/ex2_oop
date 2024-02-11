@@ -19,6 +19,11 @@ public class Heart extends GameObject {
     private BrickerGameManager gameManager;
 
     /**
+     * Speed vector for the heart power-up.
+     */
+    private static final Vector2 HEART_SPEED = new Vector2(0, 100);
+
+    /**
      * Constructor for Heart.
      *
      * @param topLeftCorner The top left corner position of the heart.
@@ -26,7 +31,7 @@ public class Heart extends GameObject {
      */
     public Heart(Vector2 topLeftCorner, BrickerGameManager gameManager) {
         super(topLeftCorner, Constants.HEART_DIMENSIONS, Resources.heartImage);
-        this.setVelocity(Constants.HEART_SPEED);
+        this.setVelocity(HEART_SPEED);
         this.gameManager = gameManager;
     }
 

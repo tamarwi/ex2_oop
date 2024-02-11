@@ -30,11 +30,6 @@ public class Constants {
     public static final String PUCK_TAG = "Puck";
 
     /**
-     * Speed vector for the heart power-up.
-     */
-    public static final Vector2 HEART_SPEED = new Vector2(0, 100);
-
-    /**
      * Dimensions of the heart power-up.
      */
     public static final Vector2 HEART_DIMENSIONS = new Vector2(20, 20);
