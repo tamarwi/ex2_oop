@@ -1,11 +1,10 @@
 package bricker.brick_strategies;
 
-import bricker.Constants;
-import bricker.Resources;
+import bricker.main.Constants;
+import bricker.main.Resources;
 import bricker.gameobjects.Ball;
 import bricker.main.BrickerGameManager;
 import danogl.GameObject;
-import danogl.collisions.Collision;
 import danogl.util.Vector2;
 
 import java.util.Random;

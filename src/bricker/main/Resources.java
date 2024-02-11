@@ -1,5 +1,6 @@
-package bricker;
+package bricker.main;
 
+import bricker.main.Constants;
 import danogl.gui.ImageReader;
 import danogl.gui.Sound;
 import danogl.gui.SoundReader;

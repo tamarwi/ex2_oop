@@ -1,7 +1,5 @@
 package bricker.main;
 
-import bricker.Constants;
-import bricker.Resources;
 import bricker.brick_strategies.*;
 import bricker.gameobjects.*;
 import danogl.GameManager;

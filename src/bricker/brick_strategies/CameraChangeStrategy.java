@@ -1,11 +1,8 @@
 package bricker.brick_strategies;
 
-import bricker.Constants;
+import bricker.main.Constants;
 import bricker.main.BrickerGameManager;
 import danogl.GameObject;
-import danogl.collisions.Collision;
-import danogl.gui.rendering.Camera;
-import danogl.util.Vector2;
 
 /**
  * CameraChangeStrategy represents strategy of changing camera to follow

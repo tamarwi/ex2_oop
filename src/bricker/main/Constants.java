@@ -1,6 +1,5 @@
-package bricker;
+package bricker.main;
 
-import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
 /**

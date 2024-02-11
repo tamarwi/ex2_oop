@@ -1,9 +1,7 @@
 package bricker.gameobjects;
 
-import bricker.Constants;
+import bricker.main.Constants;
 import danogl.GameObject;
-import danogl.collisions.Collision;
-import danogl.gui.Sound;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
