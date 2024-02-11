@@ -118,6 +118,12 @@ public class BrickerGameManager extends GameManager {
         }
     }
 
+    /**
+     * Adds a puck (Ball object) to the game manager.
+     * If there is an available slot in the puck array, the puck is added to that slot.
+     * If all slots are filled, the puck array is resized and the puck is added.
+     * @param puck The puck (Ball object) to be added.
+     */
     public void addPuck(Ball puck){
         for(int i=0; i < this.puckArr.length; ++i){
             if(this.puckArr[i] == null){
@@ -131,15 +137,6 @@ public class BrickerGameManager extends GameManager {
         this.puckArr = copy;
         addGameObject(puck);
     }
-
-//    /** //TODO - DELETE IF UNNECESSARY
-//     * Gets the dimensions of the game window.
-//     *
-//     * @return The Vector2 object representing the window dimensions.
-//     */
-//    public Vector2 getWindowDimensions() {
-//        return this.windowDimensions;
-//    }
 
     /**
      * Checks for the end of the game.
