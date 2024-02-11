@@ -389,6 +389,13 @@ public class BrickerGameManager extends GameManager {
         --this.numberOfBricks;
     }
 
+    /**
+     * Increases the number of bricks in the game by 1.
+     */
+    public void increaseNumberOfBricks() {
+        ++this.numberOfBricks;
+    }
+
 
     /**
      * Parses command line arguments to get the number of brick rows and bricks in each row.
