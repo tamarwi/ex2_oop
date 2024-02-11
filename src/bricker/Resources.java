@@ -52,6 +52,11 @@ public class Resources {
      * @param imageReader ImageReader object to read image resources.
      * @param soundReader SoundReader object to read sound resources.
      */
+
+    /**
+     * Default Constructor for Resource.
+     */
+    Resources(){}
     public static void initializeResources(ImageReader imageReader, SoundReader soundReader) {
         ballImage = imageReader.readImage(Constants.BALL_IMAGE_PATH, true);
         paddleImage = imageReader.readImage(Constants.PADDLE_IMAGE_PATH, true);

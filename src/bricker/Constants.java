@@ -183,4 +183,9 @@ public class Constants {
      * Safety distance between bricks.
      */
     public static final int SAFETY_HEIGHT_BETWEEN_BRICKS = Constants.BRICK_HEIGHT + 3;
+
+    /**
+     * Default Constructor for Constants.
+     */
+    Constants(){}
 }

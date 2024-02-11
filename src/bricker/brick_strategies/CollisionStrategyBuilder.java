@@ -50,6 +50,10 @@ public class CollisionStrategyBuilder {
     private final static double DOUBLE_CAMERA_CHANGE_STRATEGY = 0.8;
 
     /**
+     * Default Constructor for CollisionStrategyBuilder.
+     */
+    CollisionStrategyBuilder(){}
+    /**
      * Builds a collision strategy based on random thresholds for various strategies.
      *
      * @param gameManager The game manager to associate with the created strategy.
