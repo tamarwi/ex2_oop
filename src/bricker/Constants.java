@@ -182,5 +182,5 @@ public class Constants {
     /**
      * Default Constructor for Constants.
      */
-    Constants(){}
+    public Constants(){}
 }

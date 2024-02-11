@@ -49,7 +49,7 @@ public class Resources {
     /**
      * Default Constructor for Resource.
      */
-    Resources() {
+    public Resources() {
     }
 
     /**
