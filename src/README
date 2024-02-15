@@ -106,3 +106,4 @@ Question answers:
         addLife() - used by the heart to add life on collision
         decreaseNumberOfBricks() - used by Collision Strategies to decrease the number of
         bricks in the game.
+        getWindowDimensions() - used by Heart to determine whether it is out of bound

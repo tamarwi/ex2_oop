@@ -99,6 +99,11 @@ public class BrickerGameManager extends GameManager {
         checkForPucksOutOfBounds();
         checkForGameEnd();
         checkForCameraReset();
+        for(GameObject obj: gameObjects()){
+            if(obj.getTag().equals(Constants.HEART_TAG)){
+                ((Heart)obj).checkOutOfBounds();
+            }
+        }
     }
 
     /**
@@ -394,6 +399,13 @@ public class BrickerGameManager extends GameManager {
      */
     public void increaseNumberOfBricks() {
         ++this.numberOfBricks;
+    }
+
+    /**
+     * @return a vector representing the window dimensions
+     */
+    public Vector2 getWindowDimensions(){
+        return this.windowDimensions;
     }
 
 

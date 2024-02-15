@@ -31,6 +31,7 @@ public class Heart extends GameObject {
         super(topLeftCorner, Constants.HEART_DIMENSIONS, Resources.heartImage);
         this.setVelocity(HEART_SPEED);
         this.gameManager = gameManager;
+        this.setTag(Constants.HEART_TAG);
     }
 
     /**
@@ -56,5 +57,14 @@ public class Heart extends GameObject {
     @Override
     public boolean shouldCollideWith(GameObject other) {
         return other.getTag().equals(Constants.MAIN_PADDLE_TAG);
+    }
+
+    /**
+     * Checks whether the heart is out of bound and removes it from the game if it is
+     */
+    public void checkOutOfBounds(){
+        if(this.getCenter().y() > this.gameManager.getWindowDimensions().y()) {
+            this.gameManager.removeGameObject(this);
+        }
     }
 }

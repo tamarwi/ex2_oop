@@ -29,6 +29,11 @@ public class Constants {
     public static final String PUCK_TAG = "Puck";
 
     /**
+     * Tag for the heart object.
+     */
+    public static final String HEART_TAG = "Heart";
+
+    /**
      * Dimensions of the heart power-up.
      */
     public static final Vector2 HEART_DIMENSIONS = new Vector2(20, 20);
